@@ -1,0 +1,12 @@
+1. Buat controller baru "Service"
+2. Membuat fungsi 
+	public function index()
+    {
+        $data['data_barang'] = \App\Models\Barang::all();
+        return response($data);
+    }
+3. Pada route menambahkan
+	Route::get('webservice/listbarang', [service::class, 'index']);
+4. Cara panggil :http://127.0.0.1:8000/webservice/listjenis
+
+select * from barang where kode_barang
