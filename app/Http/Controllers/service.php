@@ -27,4 +27,81 @@ class service extends Controller
         $data= \App\Models\Barang::where(['kode_barang' => $kodeBarang])->first();
         return response($data);
     }
+
+    public function user(Request $request)
+    {
+        $input = json_decode($request->getContent());
+        $userid = $input->userid;
+        $password = $input->password;
+        $user = \App\Models\User::where(['email'=> $userid])->first();
+        return response($user);
+    }
+    public function tambahBarang(Request $request)
+    {
+        $kodeBarang = $request->post('kode_barang'); //ambil post value index nama_peserta
+        $namaBarang = $request->post('nama_barang'); //ambil post value index id_asal
+        $jenisBarang = $request->post('jenis_barang');  //ambil post value index id_periode
+        $tanggalMasuk = $request->post('tanggal_masuk');  //ambil post value index id_periode
+        $hargaBeli = $request->post('harga_beli');  //ambil post value index id_periode
+        $gambar = $request->file('gambar'); //ambil post value index gambar
+
+        //definisikan path gambar
+        $path = "./berkas";
+
+        //cek folder nya udah kebuat atau belum.
+        //kalo belum, bakal execute yang mkdir didalam block IF
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true); //buat folder ini
+        }
+
+        //ini proses upload
+        //return dari move() itu boolean (true/false)
+        //kalo false, berarti upload gagal
+        $name = rand() . "-" . str_replace(" ", "-", strtolower($namaBarang)) . "." . $gambar->getClientOriginalExtension();
+        if (!$gambar->move($path, $name)) {
+            //munculin response upload error dengan HTTP code 500
+            return response(['message' => 'upload error'], 500);
+        }
+
+        //prepare data untuk diinsert
+        $data = [
+            'kode_barang' => $kodeBarang,
+            'nama_barang' => $namaBarang,
+            'jenis_barang' => $jenisBarang,
+            'harga_beli' => $hargaBeli,
+            'tanggal_masuk' => $tanggalMasuk,
+            'gambar' => "berkas/".$name
+        ];
+
+        $ins = Barang::insert($data); //proses insert
+        if ($ins) {
+            //kalo berhasil kasih response json berhasil
+            return response(['message' => 'Tambah Barang Berhasil']);
+        } else {
+            //kalo gagal insert, kasih juga response gagal dengan HTTP code 500 (internal server error)
+            return response(['message' => 'Tambah Barang gagal'], 500);
+        }
+    }
+
+    public function tambahJenis(Request $request)
+    {
+        $idJenisBarang = $request->post('id_jenis_barang'); //ambil post value index nama_peserta
+        $jenisBarang = $request->post('jenis_barang');  //ambil post value index id_periode
+        
+        
+        $data = [
+            'id_jenis_barang' => $idJenisBarang,
+            'jenis_barang' => $jenisBarang
+           
+        ];
+
+        $ins = Jenis::insert($data); //proses insert
+        if ($ins) {
+            //kalo berhasil kasih response json berhasil
+            return response(['message' => 'Tambah Jenis Berhasil']);
+        } else {
+            //kalo gagal insert, kasih juga response gagal dengan HTTP code 500 (internal server error)
+            return response(['message' => 'Tambah Jenis gagal'], 500);
+        }
+    }
 }
