@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.4/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.4/datatables.min.css" />
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -27,7 +27,19 @@
                 </li>
             </ul>
 
-           
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <form action="{{ url('/logout') }}" method="post">
+                        @csrf
+                        <!-- <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"> -->
+                        <a class="nav-link" href="#" onclick="$(this).closest('form').submit()" role="button">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </form>
+                </li>
+            </ul>
         </nav>
         <!-- /.navbar -->
 
@@ -36,7 +48,7 @@
             <!-- Brand Logo -->
             <a href="{{asset('assets/index3.html')}}" class="brand-link">
                 <img src="{{asset('assets/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Sistem Inventory</span>
+                <span class="brand-text font-weight-light">Inventaris</span>
             </a>
 
             <!-- Sidebar -->
@@ -68,17 +80,19 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="/dashboard/" class="nav-link {{ request()->is('dashboard') ? 'active':'' }}">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-header">MANAJEMEN DATA</li>
                         <li class="nav-item">
                             <a href="/barang/" class="nav-link {{ request()->is('barang') ? 'active':'' }}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>Barang Masuk</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/barangkelaur/" class="nav-link {{ request()->is('barangkeluar') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
-                                <p>Barang Keluar</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -110,7 +124,7 @@
                         <li class="nav-header">LAPORAN</li>
                         <li class="nav-item">
                             <a href="/laporan/" class="nav-link {{ request()->is('laporan') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon fas fa-table"></i>
                                 <p>Laporan Inventaris</p>
                             </a>
                         </li>
@@ -154,8 +168,9 @@
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.4/datatables.min.js"></script>
 <script>
-$(document).ready( function () {
-    $('.myTable').DataTable();
-} );
+    $(document).ready(function() {
+        $('.myTable').DataTable();
+    });
 </script>
+
 </html>

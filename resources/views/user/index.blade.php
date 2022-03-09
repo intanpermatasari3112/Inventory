@@ -67,6 +67,7 @@
                                                     <option value="ADMIN">Administrator</option>
                                                     <option value="GUDANG">Bagian Gudang</option>
                                                     <option value="MANAGER">Manager</option>
+                                                    <option value="MANAGER">Pengguna</option>
                                                 </select>
                                             </div>
                                     </div>
