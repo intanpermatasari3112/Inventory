@@ -45,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stok/{kodeStok}/edit', [StokController::class, 'edit']);
     Route::post('/stok/{kodeStok}/update', [StokController::class, 'update']);
     Route::get('/stok/{kodeStok}/delete', [StokController::class, 'delete']);
+    //supplier
+    Route::get('/supplier', [SupplierController::class, 'index']);
+    Route::post('/supplier/create', [SupplierController::class, 'create']);
+    Route::get('/supplier/{id_supplier}/edit', [SupplierController::class, 'edit']);
+    Route::post('/supplier/{id_supplier}/update', [SupplierController::class, 'update']);
+    Route::get('/supplier/{id_supplier}/delete', [SupplierController::class, 'delete']);
     
     Route::middleware(['role:admin,manager'])->group(function () {
         Route::get('/user', [UserController::class, 'index']);
