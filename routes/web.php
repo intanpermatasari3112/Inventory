@@ -45,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stok/{kodeStok}/edit', [StokController::class, 'edit']);
     Route::post('/stok/{kodeStok}/update', [StokController::class, 'update']);
     Route::get('/stok/{kodeStok}/delete', [StokController::class, 'delete']);
+    //supplier
+    Route::get('/supplier', [SupplierController::class, 'index']);
+    Route::post('/supplier/create', [SupplierController::class, 'create']);
+    Route::get('/supplier/{id_supplier}/edit', [SupplierController::class, 'edit']);
+    Route::post('/supplier/{id_supplier}/update', [SupplierController::class, 'update']);
+    Route::get('/supplier/{id_supplier}/delete', [SupplierController::class, 'delete']);
     
     Route::middleware(['role:admin,manager'])->group(function () {
         Route::get('/user', [UserController::class, 'index']);
@@ -69,6 +75,10 @@ Route::get('webservice/listbarang', [service::class, 'index']);
 Route::get('webservice/liststok', [service::class, 'lihat']);
 Route::get('webservice/listjenis', [service::class, 'lihatjenis']);
 Route::get("webservice/detailbarang", [service::class, "detailBarang"]);
+Route::post('webservice/login', [service::class, 'user']);
+Route::post('webservice/tambah-barang', [service::class, 'tambahBarang']);
+Route::post('webservice/tambah-jenis', [service::class, 'tambahJenis']);
+Route::get("webservice/hapusBarang", [service::class, "hapusBarang"]);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

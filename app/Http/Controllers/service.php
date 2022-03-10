@@ -104,4 +104,15 @@ class service extends Controller
             return response(['message' => 'Tambah Jenis gagal'], 500);
         }
     }
+
+    public function hapusBarang($kode_barang)
+    {
+        $data = \App\Models\Barang::find($kode_barang);
+        $berkaslama = $data->gambar;
+        $data->delete($data);
+        if($berkaslama){
+            Storage::delete($berkaslama);
+        }
+        return response(['message' => 'data berhasil dihapus']);
+    }
 }
