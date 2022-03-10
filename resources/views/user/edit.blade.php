@@ -35,15 +35,31 @@
             </div>
             <div class="card-body">
                 <div class="col-sm-12">
-                    <form action="/user/{{$user->id_user}}/update" method="POST">
+                    <form action="/user/{{$user->id}}/update" method="POST">
                         {{csrf_field()}}
+                        <div class="mb-3">
+                            <label for="id" class="form-label">ID Karyawan</label>
+                            <input name="id" type="text" class="form-control" id="id" aria-describedby="id" placeholder="Masukkan ID Karyawan" value="{{$user->id}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Karyawan</label>
+                            <input name="name" type="text" class="form-control" id="nama" aria-describedby="nama" placeholder="Masukkan Nama Karyawan" value="{{$user->name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <select name="jabatan" id="jabatan" class="form-select">
+                            <option value="">--Pilih Jabatan--</option>
+                                <option {{ $user->jabatan == 'MANAGER' ? 'selected':'' }} value="MANAGER">Manager</option>
+                                <option {{ $user->jabatan == 'KARYAWAN' ? 'selected':'' }} value="KARYAWAN">Karyawan</option>
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input name="email" type="text" class="form-control" id="username" aria-describedby="username" placeholder="Masukkan Username" value="{{$user->email}}">
                         </div>
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama</label>
-                            <input name="name" type="text" class="form-control" id="nama" aria-describedby="nama" placeholder="Masukkan Nama" value="{{$user->name}}">
+                            <label for="password" class="form-label">Password Baru</label>
+                            <input name="password" type="text" class="form-control" id="password" aria-describedby="password" placeholder="Kosongkan jika tidak ingin mengubah password!">
                         </div>
                         <div class="mb-3">
                             <label for="level" class="form-label">Level</label>
@@ -54,11 +70,7 @@
                                 <option {{ $user->level == 'MANAGER' ? 'selected':'' }} value="MANAGER">Manager</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password Baru</label>
-                            <input name="password" type="text" class="form-control" id="password" aria-describedby="password" placeholder="Kosongkan jika tidak ingin mengubah password!">
-                        </div>
-                        <button type=" submit" class="btn btn-warning">Update</button>
+                        <button type="submit" class="btn btn-warning">Update</button>
                     </form>
                 </div>
             </div>

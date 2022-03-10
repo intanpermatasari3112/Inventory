@@ -49,6 +49,22 @@
                                         <form action="/user/create" method="POST">
                                             {{csrf_field()}}
                                             <div class="mb-3">
+                                                <label for="id" class="form-label">ID Karyawan</label>
+                                                <input name="id" type="text" class="form-control" id="id" aria-describedby="id" placeholder="Masukkan ID Karyawan">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nama" class="form-label">Nama Karyawan</label>
+                                                <input name="name" type="text" class="form-control" id="nama" aria-describedby="nama" placeholder="Masukkan Nama Karyawan">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="jabatan" class="form-label">Jabatan</label>
+                                                <select name="jabatan" id="jabatan" class="form-select">
+                                                    <option value="">--Pilih Jabatan--</option>
+                                                    <option value="MANAGER">Manager</option>
+                                                    <option value="KARYAWAN">Karyawan</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="username" class="form-label">Username</label>
                                                 <input name="email" type="text" class="form-control" id="username" aria-describedby="username" placeholder="Masukkan Username">
                                             </div>
@@ -57,17 +73,13 @@
                                                 <input name="password" type="password" class="form-control" id="password" aria-describedby="password" placeholder="Masukkan Password">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="nama" class="form-label">Nama</label>
-                                                <input name="name" type="text" class="form-control" id="nama" aria-describedby="nama" placeholder="Masukkan Nama">
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="level" class="form-label">Level</label>
                                                 <select name="level" id="level" class="form-select">
                                                     <option value="">--Pilih Level--</option>
                                                     <option value="ADMIN">Administrator</option>
                                                     <option value="GUDANG">Bagian Gudang</option>
                                                     <option value="MANAGER">Manager</option>
-                                                    <option value="KARYAWAN">Karyawan</option>
+                                                    <option value="PENGGUNA">Pengguna</option>
                                                 </select>
                                             </div>
                                     </div>
@@ -87,7 +99,9 @@
                     <thead>
                         <tr align="center">
                             <th>No</th>
-                            <th>Nama</th>
+                            <th>ID Karyawan</th>
+                            <th>Nama Karyawan</th>
+                            <th>Jabatan Karyawan</th>
                             <th>Username</th>
                             <th>Level</th>
                             <th>Aksi</th>
@@ -98,7 +112,9 @@
                         @foreach($data_user as $user)
                         <tr align="center">
                             <td>{{$no++}}</td>
+                            <td>{{$user->id}}</td>
                             <td>{{$user->name}}</td>
+                            <td>{{$user->jabatan}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->level}}</td>
                             <td><a href="/user/{{$user->id}}/edit" class="btn btn-warning btn-sm">Ubah

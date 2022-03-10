@@ -30,8 +30,11 @@ class UserController extends Controller
     {
         $data = \App\Models\User::find($id_user);
         $user = $request->all();
-        if($user['password'])
+        if($user['password']) {
             $user['password'] = Hash::make($user['password']);
+        } else {
+            unset($user['password']);
+        }
         $data->update($user);
         return redirect('/user')->with('sukses', 'Data berhasil diupdate');
     }

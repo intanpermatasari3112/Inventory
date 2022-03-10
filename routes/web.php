@@ -25,7 +25,7 @@ use App\Http\Controllers\service;
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         // return view('welcome');
-        return redirect('/barang');
+        return redirect('/dashboard');
     });
     Route::get('/dashboard',[DashboardController::class, 'index']);
     Route::get('/barang',[BarangController::class, 'index']);
