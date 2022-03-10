@@ -20,7 +20,6 @@ class BarangController extends Controller
     {
         $file = $request->file("gambar");
         $insert = $request->all();
-        $insert['kode_barang'] = $this->getNextNomorUrut($insert['jenis_barang']); //coba insert ntan
         $insert['gambar'] = $file->storeAs('berkas', Str::random(25) .'.'. $file->getClientOriginalExtension());
         \App\Models\Barang::create($insert);
         return redirect('/barang')->with('sukses','Data berhasil diinput');
