@@ -64,6 +64,10 @@ Route::get('webservice/listbarang', [service::class, 'index']);
 Route::get('webservice/liststok', [service::class, 'lihat']);
 Route::get('webservice/listjenis', [service::class, 'lihatjenis']);
 Route::get("webservice/detailbarang", [service::class, "detailBarang"]);
+Route::post('webservice/login', [service::class, 'user']);
+Route::post('webservice/tambah-barang', [service::class, 'tambahBarang']);
+Route::post('webservice/tambah-jenis', [service::class, 'tambahJenis']);
+Route::get("webservice/hapusBarang", [service::class, "hapusBarang"]);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
