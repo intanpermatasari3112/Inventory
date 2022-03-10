@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CobaController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\UserController;
@@ -24,12 +27,14 @@ Route::middleware(['auth'])->group(function () {
         // return view('welcome');
         return redirect('/barang');
     });
+    Route::get('/dashboard',[DashboardController::class, 'index']);
     Route::get('/barang',[BarangController::class, 'index']);
     Route::post('/barang/create', [BarangController::class, 'create']);
     Route::get('/barang/{kode_barang}/edit', [BarangController::class, 'edit']);
     Route::post('/barang/{kode_barang}/update', [BarangController::class, 'update']);
     Route::get('/barang/{kode_barang}/delete', [BarangController::class, 'delete']);
     Route::get('/barang/{kode_barang}/cetak', [BarangController::class, 'cetak']);
+    Route::get('/barangkeluar',[BarangkeluarController::class, 'index']);
     Route::get('/jenis', [JenisController::class, 'index']);
     Route::post('/jenis/create', [JenisController::class, 'create']);
     Route::get('/jenis/{id_jenis_barang}/edit', [JenisController::class, 'edit']);

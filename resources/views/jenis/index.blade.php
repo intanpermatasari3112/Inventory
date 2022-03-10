@@ -54,6 +54,10 @@
                                                 <input name="id_jenis_barang" type="text" class="form-control" id="id_jenis_barang" aria-describedby="id_jenis_barang" placeholder="Masukkan ID Jenis Barang">
                                             </div>
                                             <div class="mb-3">
+                                                <label for="kode_jenis" class="form-label">Kode Jenis</label>
+                                                <input name="kode_jenis" type="text" class="form-control" id="kode_jenis" aria-describedby="kode_jenis" placeholder="Masukkan Kode Jenis">
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="jenis_barang" class="form-label">Jenis Barang</label>
                                                 <input name="jenis_barang" type="text" class="form-control" id="jenis_barang" aria-describedby="kode_barang" placeholder="Masukkan Nama Jenis Barang">
                                             </div>
@@ -74,7 +78,8 @@
                     <thead>
                         <tr align="center">
                             <th>No</th>
-                            <th>ID Jenis Barang</th>
+                            <th>ID Jenis Barang </th>
+                            <th>Kode Jenis</th>
                             <th>Jenis Barang</th>
                             <th>Aksi</th>
                         </tr>
@@ -85,6 +90,7 @@
                         <tr align="center">
                             <td>{{$no++}}</td>
                             <td>{{$jenis->id_jenis_barang}}</td>
+                            <td>{{$jenis->kode_jenis}}</td>
                             <td>{{$jenis->jenis_barang}}</td>
                             <td><a href="/jenis/{{$jenis->id_jenis_barang}}/edit" class="btn btn-warning btn-sm">Ubah
                                     <a href="/jenis/{{$jenis->id_jenis_barang}}/delete" class="btn btn-danger btn-sm">Hapus</td>

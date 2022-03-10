@@ -96,6 +96,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/barangkeluar/" class="nav-link {{ request()->is('barangkeluar') ? 'active':'' }}">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>Barang Keluar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/jenis/" class="nav-link {{ request()->is('jenis') ? 'active':'' }}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>

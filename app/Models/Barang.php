@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barang extends Model
 {
+    protected $keyType = "string";
     protected $primaryKey = "kode_barang";
     protected $table = 'barang';
     protected $fillable = ['kode_barang', 'nama_barang', 'jenis_barang', 'tanggal_masuk', 'harga_beli', 'gambar'];

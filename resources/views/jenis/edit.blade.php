@@ -39,7 +39,11 @@
                         {{csrf_field()}}
                         <div class="mb-3">
                             <label for="id_jenis_barang" class="form-label">ID Jenis Barang</label>
-                            <input name="id_jenis_barang" type="text" class="form-control" id="id_jenis_barang" aria-describedby="id_jenis_barang" placeholder="Masukkan ID Jenis Barang" value="{{$jenis->id_jenis_barang}}">
+                            <input name="id_jenis_barang" type="text" class="form-control" id="id_jenis_barang" aria-describedby="id_jenis_barang" placeholder="Masukkan ID Jenis Barang" value="{{$jenis->id_jenis_barang}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kode_jenis" class="form-label">Kode Jenis</label>
+                            <input name="kode_jenis" type="text" class="form-control" id="kode_jenis" aria-describedby="kode_jenis" placeholder="Masukkan ID Jenis Barang" value="{{$jenis->kode_jenis}}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="jenis_barang" class="form-label">Jenis Barang</label>
