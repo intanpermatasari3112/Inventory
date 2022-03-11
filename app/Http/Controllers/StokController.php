@@ -9,9 +9,10 @@ class StokController extends Controller
 {
     public function index()
     {
+        $last = \App\Models\Stok::orderBy('kodeStok', 'desc')->first();
         $data['data_stok'] = \App\Models\Stok::all();
         $data['barang'] = Barang::all();
-        $data['nextid'] = \App\Models\Stok::orderBy('kodeStok', 'desc')->first()->kodeStok+1;
+        $data['nextid'] = $last ? $last->kodeStok+1 : 1;
         return view('stok.index',$data);
     }
     public function create(Request $request)

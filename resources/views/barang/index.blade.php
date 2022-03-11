@@ -67,6 +67,27 @@
                                                 <input name="nama_barang" type="text" class="form-control" id="nama_barang" aria-describedby="kode_barang" placeholder="Masukkan Nama Barang">
                                             </div>
                                             <div class="mb-3">
+                                                <label for="merek" class="form-label">Merek</label>
+                                                <input name="merek" type="text" class="form-control" id="merek" aria-describedby="merek" placeholder="Masukkan Nama Merek">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="satuan" class="form-label">Satuan</label>
+                                                <input name="satuan" type="text" class="form-control" id="satuan" aria-describedby="satuan" placeholder="Masukkan Nama Satuan">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="jumlah_beli" class="form-label">Jumlah Beli</label>
+                                                <input name="jumlah_beli" type="integer" class="form-control" id="jumlah_beli" aria-describedby="jumlah_beli" placeholder="Jumlah_beli">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kondisi" class="form-label">Kondisi</label>
+                                                <select name="kondisi" id="kondisi" class="form-select">
+                                                    <option value="">--Pilih kondisi--</option>
+                                                    <option >Baru</option>
+                                                    <option >Bekas</option>
+                                                    <option >Rusak</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="tanggal_masuk" class="form-label">Tanggal Beli</label>
                                                 <input name="tanggal_masuk" type="date" class="form-control" id="tanggal_masuk" aria-describedby="tanggal_masuk" placeholder="Pilih Tanggal">
                                             </div>
@@ -148,8 +169,7 @@
         $('select[name=jenis_barang]').change(function() {
             kodesbarang.filter(r => r.kode_jenis == $(this).find(":selected").data('kodejenis')).map(r => {
                 let { kode_jenis, lastid } = r;
-                console.log(r)
-                const nextid = ('000' + (parseInt(lastid)+1)).slice(-4);
+                const nextid = ('000' + (parseInt(lastid || '0')+1)).slice(-4);
                 $('input[name=kode_barang]').val(`${kode_jenis}-LTI-${nextid}`);
             });
         });
