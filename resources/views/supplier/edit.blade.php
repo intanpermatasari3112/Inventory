@@ -43,7 +43,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama_supplier" class="form-label">Kode Jenis</label>
-                            <input name="nama_supplier" type="text" class="form-control" id="nama_supplier" aria-describedby="nama_supplier" placeholder="Masukkan Nama Supplier" value="{{$supplier->nama_supplier}}" readonly>
+                            <input name="nama_supplier" type="text" class="form-control" id="nama_supplier" aria-describedby="nama_supplier" placeholder="Masukkan Nama Supplier" value="{{$supplier->nama_supplier}}">
                         </div>
                         <div class="mb-3">
                             <label for="kontak" class="form-label">Jenis Barang</label>

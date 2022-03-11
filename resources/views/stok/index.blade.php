@@ -51,7 +51,7 @@
                                             {{csrf_field()}}
                                             <div class="mb-3">
                                                 <label for="kodeStok" class="form-label">Kode Stok</label>
-                                                <input name="kodeStok" type="text" class="form-control" id="kodeStok" aria-describedby="kodeStok" placeholder="Masukkan Kode Stok">
+                                                <input name="kodeStok" type="text" class="form-control" value="{{$nextid}}" id="kodeStok" aria-describedby="kodeStok" placeholder="Masukkan Kode Stok" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="kode_barang" class="form-label">Kode Barang</label>
@@ -88,7 +88,7 @@
                         <tr align="center">
                             <th>No</th>
                             <th>Kode Stok Barang</th>
-                            <th>Nama Barang</th>
+                            <th>Kode Barang</th>
                             <th>Batas Minimal</th>
                             <th>Stok</th>
                             <th>Aksi</th>
@@ -100,7 +100,7 @@
                         <tr align="center">
                             <td>{{$no++}}</td>
                             <td>{{$stok->kodeStok}}</td>
-                            <td>{{$stok->barang ? $stok->barang->nama_barang:''}}</td>
+                            <td>{{$stok->barang ? $stok->barang->kode_barang:''}}</td>
                             <td>{{$stok->batasMin}}</td>
                             <td>{{$stok->stok}}</td>
                             <td><a href="/stok/{{$stok->kodeStok}}/edit" class="btn btn-warning btn-sm">Ubah

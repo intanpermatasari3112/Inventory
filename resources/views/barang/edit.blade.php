@@ -45,6 +45,31 @@
                             <label for="nama_barang" class="form-label">Nama Barang</label>
                             <input name="nama_barang" type="text" class="form-control" id="nama_barang" aria-describedby="kode_barang" placeholder="Masukkan Nama Barang" value="{{$barang->nama_barang}}">
                         </div>
+                        <div class="mb-3">
+                            <label for="nama_barang" class="form-label">Merek</label>
+                            <input name="merek" type="text" class="form-control" id="merek" aria-describedby="merek" placeholder="Masukkan Nama Merek" value="{{$barang->merek}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="satuan" class="form-label">Satuan</label>
+                            <input name="satuan" type="text" class="form-control" id="satuan" aria-describedby="satuan" placeholder="Masukkan Satuan" value="{{$barang->satuan}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="jumlah_beli" class="form-label">Jumlah Beli</label>
+                            <input name="jumlah_beli" type="text" class="form-control" id="jumlah_beli" aria-describedby="jumlah_beli" placeholder="Masukkan jumlah_beli" value="{{$barang->jumlah_beli}}">
+                        </div>
+                        {{-- <div class="mb-3">
+                            <label for="kondisi" class="form-label">Kondisi</label>
+                            <input name="kondisi" type="text" class="form-control" id="kondisi" aria-describedby="kondisi" placeholder="Masukkan Nama Barang" value="{{$barang->kondisi}}">
+                        </div> --}}
+                        <div class="mb-3">
+                            <label for="kondisi" class="form-label">Kondisi</label>
+                            <select name="kondisi" id="kondisi" class="form-select">
+                                <option value="">--Pilih kondisi--</option>
+                                <option >Baru</option>
+                                <option >Bekas</option>
+                                <option >Rusak</option>
+                            </select>
+                        </div>
                         <div class=" mb-3">
                             <label for="jenis_barang" class="form-label">Jenis Barang</label>
                             <select name="jenis_barang" id="kategori" class="form-control">

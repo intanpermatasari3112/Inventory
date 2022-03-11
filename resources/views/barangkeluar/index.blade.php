@@ -57,7 +57,7 @@
                                                 <label for="jenis_barang" class="form-label">Jenis Barang</label>
                                                 <select name="jenis_barang" id="kategori" class="form-control">
                                                     <option value="">-- Silahkan pilih satu --</option>
-                                                    @foreach($barang as $j)
+                                                    @foreach($jenis as $j)
                                                     <option value="<?= $j->id_jenis_barang ?>">{{$j->jenis_barang}}</option>
                                                     @endforeach
                                                 </select>
@@ -80,8 +80,13 @@
                                                 <input name="jumlah" type="int" class="form-control" id="jumlah" aria-describedby="jumlah" placeholder="Masukkan Jumlah">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="pengguna" class="form-label">Pengguna</label>
-                                                <input name="pengguna" type="int" class="form-control" id="pengguna" aria-describedby="pengguna" placeholder="Masukkan Pengguna">
+                                                <label for="name" class="form-label">Pengguna</label>
+                                                <select name="name" id="kategori" class="form-control">
+                                                    <option value="">-- Silahkan pilih satu --</option>
+                                                    @foreach($user as $u)
+                                                    <option value="<?= $u->id ?>">{{$u->name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="keterangan" class="form-label">Keterangan</label>
@@ -120,10 +125,10 @@
                             <td>{{$no++}}</td>
                             <td>{{$barangkeluar->kode_barang_keluar}}</td>
                             <td>{{$barangkeluar->barang ? $barangkeluar->barang->nama_barang:''}}</td>
-                            <td>{{$barangkeluar->barang->jenis_barang}}</td>
+                            <td>{{$barangkeluar->jenis ? $barangkeluar->jenis->jenis_barang:''}}</td>
                             <td>{{barangkeluar->tanggal_keluar}}</td>
                             <td>{{barangkeluar->jumlah}}</td>
-                            <td>{{barangkeluar->pengguna}}</td>
+                            <td>{{barangkeluar->user ? $barangkeluar->user->name:''}}</td>
                             <td>{{barangkeluar->keterangan}}</td>
                             <td>
                                 <a href="{{ url('barangkeluar/'.$barangkeluar->kode_barang_keluar.'/edit') }}" class="btn btn-warning btn-sm">Ubah

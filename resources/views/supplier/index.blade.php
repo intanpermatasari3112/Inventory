@@ -50,7 +50,7 @@
                                         <form action="/supplier/create" method="POST">
                                             {{csrf_field()}}
                                             <div class="mb-3">
-                                                <label for="id_supplier" class="form-label">ID supplier Barang</label>
+                                                <label for="id_supplier" class="form-label">ID Supplier Barang</label>
                                                 <input name="id_supplier" type="text" class="form-control" id="id_supplier" aria-describedby="id_supplier" placeholder="Masukkan ID Supplier ">
                                             </div>
                                             
@@ -80,22 +80,22 @@
                     <thead>
                         <tr align="center">
                             <th>No</th>
-                            <th>ID Jenis Barang </th>
-                            <th>Kode Jenis</th>
-                            <th>Jenis Barang</th>
+                            <th>ID Supplier Barang</th>
+                            <th>Nama Supplier Barang</th>
+                            <th>Kontak Supplier</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $no = 1; @endphp
-                        @foreach($data_jenis as $jenis)
+                        @foreach($data_supplier as $supplier)
                         <tr align="center">
                             <td>{{$no++}}</td>
-                            <td>{{$jenis->id_jenis_barang}}</td>
-                            <td>{{$jenis->kode_jenis}}</td>
-                            <td>{{$jenis->jenis_barang}}</td>
-                            <td><a href="/jenis/{{$jenis->id_jenis_barang}}/edit" class="btn btn-warning btn-sm">Ubah
-                                    <a href="/jenis/{{$jenis->id_jenis_barang}}/delete" class="btn btn-danger btn-sm">Hapus</td>
+                            <td>{{$supplier->id_supplier}}</td>
+                            <td>{{$supplier->nama_supplier}}</td>
+                            <td>{{$supplier->kontak}}</td>
+                            <td><a href="/supplier/{{$supplier->id_supplier}}/edit" class="btn btn-warning btn-sm">Ubah
+                                    <a href="/supplier/{{$supplier->id_supplier}}/delete" class="btn btn-danger btn-sm">Hapus</td>
                         </tr>
                         @endforeach
                     </tbody>

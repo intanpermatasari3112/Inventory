@@ -38,7 +38,7 @@
                         {{csrf_field()}}
                         <div class="mb-3">
                             <label for="kodeStok" class="form-label">Kode Stok</label>
-                            <input name="kodeStok" type="text" class="form-control" id="kodeStok" aria-describedby="kodeStok" placeholder="Masukkan Kode Barang" value="{{$stok->kodeStok}}">
+                            <input name="kodeStok" type="text" class="form-control" id="kodeStok" aria-describedby="kodeStok" placeholder="Masukkan Kode Barang" value="{{$stok->kodeStok}}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="kode_barang" class="form-label">Kode Barang</label>

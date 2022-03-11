@@ -11,6 +11,12 @@ class Barangkeluar extends Model
     protected $table = 'barang_keluar';
     protected $fillable = ['kode_barang_keluar', 'kode_barang',  'tanggal_keluar', 'jumlah', 'pengguna', 'keterangan'];
     public function barang() {
-    return $this->hasOne(Barang::class, "kode_barang", "nama_barang", "jenis_barang");
+    return $this->hasOne(Barang::class, "kode_barang", "nama_barang");
+}
+public function user() {
+    return $this->hasMany(User::class, 'id', 'name');
+}
+public function jenis() {
+    return $this->hasMany(Jenis::class, 'id_jenis_barang', 'nama_barang');
 }
 }

@@ -50,21 +50,21 @@
                                         <form action="/barang/create" method="POST" enctype="multipart/form-data">
                                             {{csrf_field()}}
                                             <div class="mb-3">
-                                                <label for="kode_barang" class="form-label">Kode Barang</label>
-                                                <input name="kode_barang" type="text" class="form-control" id="kode_barang" aria-describedby="kode_barang" placeholder="Masukkan Kode Barang">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="nama_barang" class="form-label">Nama Barang</label>
-                                                <input name="nama_barang" type="text" class="form-control" id="nama_barang" aria-describedby="kode_barang" placeholder="Masukkan Nama Barang">
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="jenis_barang" class="form-label">Jenis Barang</label>
                                                 <select name="jenis_barang" id="kategori" class="form-control">
                                                     <option value="">-- Silahkan pilih satu --</option>
                                                     @foreach($jenis as $j)
-                                                    <option value="<?= $j->id_jenis_barang ?>">{{$j->jenis_barang}}</option>
+                                                    <option data-kodejenis="{{ $j->kode_jenis }}" value="{{ $j->id_jenis_barang }}">{{$j->jenis_barang}}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="kode_barang" class="form-label">Kode Barang</label>
+                                                <input name="kode_barang" readonly type="text" class="form-control" id="kode_barang" aria-describedby="kode_barang" placeholder="Masukkan Kode Barang">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nama_barang" class="form-label">Nama Barang</label>
+                                                <input name="nama_barang" type="text" class="form-control" id="nama_barang" aria-describedby="kode_barang" placeholder="Masukkan Nama Barang">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="tanggal_masuk" class="form-label">Tanggal Beli</label>
@@ -95,9 +95,13 @@
                     <thead>
                         <tr align="center">
                             <th>No</th>
+                            <th>Jenis Barang</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
-                            <th>Jenis Barang</th>
+                            <th>Merek</th>
+                            <th>Satuan</th>
+                            <th>Jumlah beli</th>
+                            <th>Kondisi</th>
                             <th>Tanggal Beli</th>
                             <th>Harga Beli</th>
                             <th>Gambar</th>
@@ -109,9 +113,13 @@
                         @foreach($data_barang as $barang)
                         <tr align="center">
                             <td>{{$no++}}</td>
+                            <td>{{$barang->jenis->jenis_barang}}</td>
                             <td>{{$barang->kode_barang}}</td>
                             <td>{{$barang->nama_barang}}</td>
-                            <td>{{$barang->jenis->jenis_barang}}</td>
+                            <td>{{$barang->merek}}</td>
+                            <td>{{$barang->satuan}}</td>
+                            <td>{{$barang->jumlah_beli}}</td>
+                            <td>{{$barang->kondisi}}</td>
                             <td>{{$barang->tanggal_masuk}}</td>
                             <td>Rp {{ number_format($barang->harga_beli, 0, ',', '.') }}</td>
                             <td>
@@ -122,7 +130,6 @@
                                 <a href="{{ url('barang/'.$barang->kode_barang.'/delete') }}" class="btn btn-danger btn-sm">Hapus
                                 <a href="{{ url('barang/'.$barang->kode_barang.'/cetak') }}" class="btn btn-success btn-sm">Barcode
                             </td>
-
                         </tr>
 
                         @endforeach
@@ -133,3 +140,19 @@
     <!-- /.content -->
 </div>
 @endsection
+
+@push('js')
+<script>
+    const kodesbarang = {!! json_encode($kodesbarang) !!};
+    $(document).ready(function() {
+        $('select[name=jenis_barang]').change(function() {
+            kodesbarang.filter(r => r.kode_jenis == $(this).find(":selected").data('kodejenis')).map(r => {
+                let { kode_jenis, lastid } = r;
+                console.log(r)
+                const nextid = ('000' + (parseInt(lastid)+1)).slice(-4);
+                $('input[name=kode_barang]').val(`${kode_jenis}-LTI-${nextid}`);
+            });
+        });
+    });
+</script>
+@endpush

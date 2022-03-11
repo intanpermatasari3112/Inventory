@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CobaController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\JenisController;
@@ -52,15 +53,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/supplier/{id_supplier}/update', [SupplierController::class, 'update']);
     Route::get('/supplier/{id_supplier}/delete', [SupplierController::class, 'delete']);
     
-    Route::middleware(['role:admin,manager'])->group(function () {
+    Route::middleware(['role:admin'])->group(function () {
         Route::get('/user', [UserController::class, 'index']);
         Route::post('/user/create', [UserController::class, 'create']);
         Route::get('/user/{id_user}/edit', [UserController::class, 'edit']);
         Route::post('/user/{id_user}/update', [UserController::class, 'update']);
         Route::get('/user/{id_user}/delete', [USerController::class, 'delete']);
     });
-
-    Route::get('/laporan', [LaporanController::class, 'index']);
+    Route::middleware(['role:admin,manager'])->group(function () {
+        Route::get('/laporan', [LaporanController::class, 'index']);
+    });
 });
 
 // Auth::routes();

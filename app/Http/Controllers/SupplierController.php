@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
-class SupllierController extends Controller
+
+class SupplierController extends Controller
 {
     public function index()
     {

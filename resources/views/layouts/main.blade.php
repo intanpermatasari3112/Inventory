@@ -88,6 +88,7 @@
                                 </p>
                             </a>
                         </li>
+                        @if(Auth::user()->level=='ADMIN')
                         <li class="nav-header">MANAJEMEN DATA</li>
                         <li class="nav-item">
                             <a href="/barang/" class="nav-link {{ request()->is('barang') ? 'active':'' }}">
@@ -117,7 +118,14 @@
                                 </p>
                             </a>
                         </li>
-                        @if(in_array(Auth::user()->level, ['ADMIN', 'MANAGER']))
+                        <li class="nav-item">
+                            <a href="/supplier/" class="nav-link {{ request()->is('supplier') ? 'active':'' }}">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>Supplier</p>
+                            </a>
+                        </li>
+                        @endif
+                        @if(in_array(Auth::user()->level, ['ADMIN']))
                         <li class="nav-item">
                             <a href="/user/" class="nav-link {{ request()->is('user') ? 'active':'' }}">
                                 <i class="nav-icon fas fa-columns"></i>
@@ -167,6 +175,7 @@
     <!-- AdminLTE App -->
     <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
+    @stack('js')
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

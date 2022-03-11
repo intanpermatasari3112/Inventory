@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jenis;
 use Illuminate\Http\Request;
 use Str;
+use DB;
 use Illuminate\Support\Facades\Storage;
 
 class BarangController extends Controller
@@ -13,6 +14,7 @@ class BarangController extends Controller
     {
         $data['data_barang'] = \App\Models\Barang::all();
         $data['jenis'] = Jenis::all();
+        $data['kodesbarang'] = DB::table(DB::raw("(SELECT j.kode_jenis, max(substring_index(substring_index(b.kode_barang,'-',-1),',',1)) as lastid FROM jenis j join barang b on j.id_jenis_barang = b.jenis_barang group by j.kode_jenis) x"))->get();
         return view('barang.index',$data);
     }
 
