@@ -55,7 +55,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="stok" class="form-label">Stok Barang</label>
-                            <input name="stok" type="text" class="form-control" id="stok" aria-describedby="stok" placeholder="Masukkan Stok Barang" value="{{$stok->stok}}">
+                            <input name="stok" type="text" class="form-control" id="stok" aria-describedby="stok" placeholder="Masukkan Stok Barang" value="{{$stok->stok}}" readonly>
                         </div>
                         <button type=" submit" class="btn btn-warning">Update</button>
                     </form>

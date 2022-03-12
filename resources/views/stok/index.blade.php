@@ -35,6 +35,18 @@
                             Tambah Stok
                         </button>
                     </div>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between">
+                            <form action="" method="get" class="mt-2">
+                                <select name="status_stok" id="status_stok" class="form-control form-control-sm d-inline" style="width: auto;">
+                                <option value="">-- Semua Status Stok --</option>
+                                <option value="habis">Stok Habis</option>
+                                <option value="masih">Stok Masih</option>
+                                </select>
+                                <button class="btn btn-sm btn-success" type="submit">Lihat</button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-6">
                         <!-- Button trigger modal -->
 
@@ -58,8 +70,8 @@
                                                 <select name="kode_barang" id="kode_barang" class="form-control">
                                                     <option value="">-- Silahkan pilih satu --</option>
                                                     @foreach($barang as $b)
-                                                    <option value="<?= $b->kode_barang ?>">{{$b->kode_barang}} - {{$b->nama_barang}}</option>
-                                                     @endforeach
+                                                    <option value="<?= $b->kode_barang ?>" data-jumlahbeli="{{ $b->jumlah_beli }}">{{$b->kode_barang}} - {{$b->nama_barang}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="mb-3">
@@ -68,7 +80,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="stok" class="form-label">Stok Barang</label>
-                                                <input name="stok" type="text" class="form-control" id="stok" aria-describedby="stok" placeholder="Masukkan Stok Barang">
+                                                <input name="stok" type="text" class="form-control" id="stok" aria-describedby="stok" placeholder="Masukkan Stok Barang" readonly>
                                             </div>
                                     </div>
                                     <div class="modal-footer">
@@ -97,7 +109,7 @@
                     <tbody>
                         @php $no = 1; @endphp
                         @foreach($data_stok as $stok)
-                        <tr align="center">
+                        <tr {{ ($stok->stok<$stok->batasMin ? "class=bg-danger":'') }} align="center">
                             <td>{{$no++}}</td>
                             <td>{{$stok->kodeStok}}</td>
                             <td>{{$stok->barang ? $stok->barang->kode_barang:''}}</td>
@@ -115,3 +127,13 @@
 </div>
 <!-- /.content-wrapper -->
 @endsection
+
+@push('js')
+<script>
+    $(document).ready(function() {
+        $('select[name=kode_barang]').change(function() {
+            $('input[name=stok]').val($(this).find(':selected').data('jumlahbeli'));
+        })
+    });
+</script>
+@endpush

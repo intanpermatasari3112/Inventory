@@ -51,7 +51,7 @@
                                             {{csrf_field()}}
                                             <div class="mb-3">
                                                 <label for="id_supplier" class="form-label">ID Supplier Barang</label>
-                                                <input name="id_supplier" type="text" class="form-control" id="id_supplier" aria-describedby="id_supplier" placeholder="Masukkan ID Supplier ">
+                                                <input name="id_supplier" type="text" class="form-control" value="{{$nextid}}" id="id_supplier" aria-describedby="id_supplier" placeholder="Masukkan ID Supplier " readonly>
                                             </div>
                                             
                                             <div class="mb-3">
@@ -62,6 +62,10 @@
                                             <div class="mb-3">
                                                 <label for="kontak" class="form-label">Kontak Supplier</label>
                                                 <input name="kontak" type="text" class="form-control" id="kontak" aria-describedby="kontak" placeholder="Masukkan Kontak Supplier">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="alamat" class="form-label">Alamat Supplier</label>
+                                                <input name="alamat" type="text" class="form-control" id="alamat" aria-describedby="alamat" placeholder="Masukkan Alamat Supplier">
                                             </div>
                                     </div>
                                     <div class="modal-footer">
@@ -83,6 +87,7 @@
                             <th>ID Supplier Barang</th>
                             <th>Nama Supplier Barang</th>
                             <th>Kontak Supplier</th>
+                            <th>Alamat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -94,6 +99,7 @@
                             <td>{{$supplier->id_supplier}}</td>
                             <td>{{$supplier->nama_supplier}}</td>
                             <td>{{$supplier->kontak}}</td>
+                            <td>{{$supplier->alamat}}</td>
                             <td><a href="/supplier/{{$supplier->id_supplier}}/edit" class="btn btn-warning btn-sm">Ubah
                                     <a href="/supplier/{{$supplier->id_supplier}}/delete" class="btn btn-danger btn-sm">Hapus</td>
                         </tr>

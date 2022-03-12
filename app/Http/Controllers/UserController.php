@@ -10,8 +10,10 @@ class UserController extends Controller
 {
     public function index()
     {
+        $last = \App\Models\User::orderBy('id', 'desc')->first();
         $data['data_user'] = User::all();
         $data['user'] = User::all();
+        $data['nextid'] = $last ? $last->id+1 : 1;
         return view('user.index',$data);
     }
     public function create(Request $request)

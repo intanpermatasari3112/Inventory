@@ -51,7 +51,7 @@
                                             {{csrf_field()}}
                                             <div class="mb-3">
                                                 <label for="id_jenis_barang" class="form-label">ID Jenis Barang</label>
-                                                <input name="id_jenis_barang" type="text" class="form-control" id="id_jenis_barang" aria-describedby="id_jenis_barang" placeholder="Masukkan ID Jenis Barang">
+                                                <input name="id_jenis_barang" type="text" class="form-control" value="{{$nextid}}" id="id_jenis_barang" aria-describedby="id_jenis_barang" placeholder="Masukkan ID Jenis Barang" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="kode_jenis" class="form-label">Kode Jenis</label>

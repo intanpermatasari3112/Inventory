@@ -9,8 +9,10 @@ class SupplierController extends Controller
 {
     public function index()
     {
+        $last = \App\Models\Supplier::orderBy('id_supplier', 'desc')->first();
         $data['data_supplier'] = Supplier::all();
         $data['supplier'] = Supplier::all();
+        $data['nextid'] = $last ? $last->id_supplier+1 : 1;
         return view('supplier.index',$data);
     }
     public function create(Request $request)

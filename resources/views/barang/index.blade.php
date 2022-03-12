@@ -96,6 +96,15 @@
                                                 <input name="harga_beli" type="int" class="form-control" id="harga_beli" aria-describedby="harga_beli" placeholder="Masukkan Harga Beli">
                                             </div>
                                             <div class="mb-3">
+                                                <label for="nama_supplier" class="form-label">Nama Supplier</label>
+                                                <select name="nama_supplier" id="kategori" class="form-control">
+                                                    <option value="">-- Silahkan pilih satu --</option>
+                                                    @foreach($supplier as $s)
+                                                    <option data-kodesupplier="{{ $s->id_supplier }}" value="{{ $s->id_supplier }}">{{$s->id_supplier}}-{{$s->nama_supplier}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="gambar" class="form-label">Upload Gambar</label>
                                                 <input name="gambar" type="file" class="form-control" id="gambar" aria-describedby="gambar">
                                             </div>
@@ -125,6 +134,7 @@
                             <th>Kondisi</th>
                             <th>Tanggal Beli</th>
                             <th>Harga Beli</th>
+                            <th>Supplier</th>
                             <th>Gambar</th>
                             <th>Aksi</th>
                         </tr>
@@ -143,6 +153,7 @@
                             <td>{{$barang->kondisi}}</td>
                             <td>{{$barang->tanggal_masuk}}</td>
                             <td>Rp {{ number_format($barang->harga_beli, 0, ',', '.') }}</td>
+                            <td>{{$barang->supplier ? $barang->supplier->nama_supplier : '' }}</td>
                             <td>
                                 <img src="{{ url($barang->gambar) }}" width="240px" />
                             </td>

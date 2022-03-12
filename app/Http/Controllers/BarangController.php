@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jenis;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Str;
 use DB;
@@ -14,6 +15,7 @@ class BarangController extends Controller
     {
         $data['data_barang'] = \App\Models\Barang::all();
         $data['jenis'] = Jenis::all();
+        $data['supplier'] = Supplier::all();
         $data['kodesbarang'] = DB::table(DB::raw("(SELECT j.kode_jenis, max(substring_index(substring_index(b.kode_barang,'-',-1),',',1)) as lastid FROM jenis j left join barang b on j.id_jenis_barang = b.jenis_barang group by j.kode_jenis) x"))->get();
         return view('barang.index',$data);
     }
@@ -30,6 +32,7 @@ class BarangController extends Controller
     {
         $data['barang'] = \App\Models\Barang::find($kode_barang);
         $data['jenis'] = Jenis::all();
+        $data['supplier'] = Supplier::all();
         return view('barang/edit', $data);
     }
     public function update(Request $request, $kode_barang)

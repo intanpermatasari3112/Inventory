@@ -9,8 +9,10 @@ class JenisController extends Controller
 {
     public function index()
     {
+        $last = \App\Models\Jenis::orderBy('id_jenis_barang', 'desc')->first();
         $data['data_jenis'] = Jenis::all();
         $data['jenis'] = Jenis::all();
+        $data['nextid'] = $last ? $last->id_jenis_barang+1 : 1;
         return view('jenis.index',$data);
     }
     public function create(Request $request)

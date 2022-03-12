@@ -50,7 +50,7 @@
                                             {{csrf_field()}}
                                             <div class="mb-3">
                                                 <label for="id" class="form-label">ID Karyawan</label>
-                                                <input name="id" type="text" class="form-control" id="id" aria-describedby="id" placeholder="Masukkan ID Karyawan">
+                                                <input name="id" type="text" class="form-control" value="{{$nextid}}" id="id" aria-describedby="id" placeholder="Masukkan ID Karyawan" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="nama" class="form-label">Nama Karyawan</label>

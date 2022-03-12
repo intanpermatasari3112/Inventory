@@ -36,6 +36,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/barang/{kode_barang}/delete', [BarangController::class, 'delete']);
     Route::get('/barang/{kode_barang}/cetak', [BarangController::class, 'cetak']);
     Route::get('/barangkeluar',[BarangkeluarController::class, 'index']);
+    Route::post('/barangkeluar/create', [BarangkeluarController::class, 'create']);
+    Route::get('/barangkeluar/{kode_barang_keluar}/edit', [BarangkeluarController::class, 'edit']);
+    Route::post('/barangkeluar/{kode_barang_keluar}/update', [BarangkeluarController::class, 'update']);
+    Route::get('/barangkeluar/{kode_barang_keluar}/delete', [BarangkeluarController::class, 'delete']);
     Route::get('/jenis', [JenisController::class, 'index']);
     Route::post('/jenis/create', [JenisController::class, 'create']);
     Route::get('/jenis/{id_jenis_barang}/edit', [JenisController::class, 'edit']);

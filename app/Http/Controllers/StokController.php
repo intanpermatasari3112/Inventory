@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Stok;
 use App\Models\Barang;
+Use DB;
 
 class StokController extends Controller
 {
     public function index()
     {
+        $stok = new \App\Models\Stok;
+
+        if(request()->status_stok == 'habis')
+            $stok = $stok->where(DB::raw('stok - batasMin'), '<=', '0');
+        if(request()->status_stok == 'masih')
+            $stok = $stok->where(DB::raw('stok - batasMin'), '>', '0');
+
         $last = \App\Models\Stok::orderBy('kodeStok', 'desc')->first();
-        $data['data_stok'] = \App\Models\Stok::all();
-        $data['barang'] = Barang::all();
+        $data['data_stok'] = $stok->get();
+        $data['barang'] = DB::table(DB::raw("(SELECT b.* FROM `barang` b LEFT JOIN `stok` s on s.kode_barang = b.kode_barang where s.kodeStok is null) x"))->get();
         $data['nextid'] = $last ? $last->kodeStok+1 : 1;
         return view('stok.index',$data);
     }

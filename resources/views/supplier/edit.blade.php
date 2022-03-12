@@ -49,6 +49,10 @@
                             <label for="kontak" class="form-label">Jenis Barang</label>
                             <input name="kontak" type="text" class="form-control" id="kontak" aria-describedby="kontak" placeholder="Masukkan Kontak Supplier" value="{{$supplier->kontak}}">
                         </div>
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat Supplier</label>
+                            <input name="alamat" type="text" class="form-control" id="alamat" aria-describedby="alamat" placeholder="Masukkan Alamat Supplier" value="{{$supplier->alamat}}">
+                        </div>
                         <button type=" submit" class="btn btn-warning">Update</button>
                     </form>
                 </div>
