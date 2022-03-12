@@ -13,5 +13,10 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        "webservice/login",
+        "webservice/tambah-barang",
+        "webservice/tambah-jenis",
+        "webservice/tambah-stok",
+        "webservice/update-barang"
     ];
 }
