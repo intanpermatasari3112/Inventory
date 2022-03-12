@@ -82,9 +82,9 @@
                                                 <label for="kondisi" class="form-label">Kondisi</label>
                                                 <select name="kondisi" id="kondisi" class="form-select">
                                                     <option value="">--Pilih kondisi--</option>
-                                                    <option >Baru</option>
-                                                    <option >Bekas</option>
-                                                    <option >Rusak</option>
+                                                    <option value="BARU">Baru</option>
+                                                    <option value="BEKAS">Bekas</option>
+                                                    <option value="RUSAK">Rusak</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
@@ -121,52 +121,54 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-hover myTable">
-                    <thead>
-                        <tr align="center">
-                            <th>No</th>
-                            <th>Jenis Barang</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Merek</th>
-                            <th>Satuan</th>
-                            <th>Jumlah beli</th>
-                            <th>Kondisi</th>
-                            <th>Tanggal Beli</th>
-                            <th>Harga Beli</th>
-                            <th>Supplier</th>
-                            <th>Gambar</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $no = 1; @endphp
-                        @foreach($data_barang as $barang)
-                        <tr align="center">
-                            <td>{{$no++}}</td>
-                            <td>{{$barang->jenis->jenis_barang}}</td>
-                            <td>{{$barang->kode_barang}}</td>
-                            <td>{{$barang->nama_barang}}</td>
-                            <td>{{$barang->merek}}</td>
-                            <td>{{$barang->satuan}}</td>
-                            <td>{{$barang->jumlah_beli}}</td>
-                            <td>{{$barang->kondisi}}</td>
-                            <td>{{$barang->tanggal_masuk}}</td>
-                            <td>Rp {{ number_format($barang->harga_beli, 0, ',', '.') }}</td>
-                            <td>{{$barang->supplier ? $barang->supplier->nama_supplier : '' }}</td>
-                            <td>
-                                <img src="{{ url($barang->gambar) }}" width="240px" />
-                            </td>
-                            <td>
-                                <a href="{{ url('barang/'.$barang->kode_barang.'/edit') }}" class="btn btn-warning btn-sm">Ubah
-                                <a href="{{ url('barang/'.$barang->kode_barang.'/delete') }}" class="btn btn-danger btn-sm">Hapus
-                                <a href="{{ url('barang/'.$barang->kode_barang.'/cetak') }}" class="btn btn-success btn-sm">Barcode
-                            </td>
-                        </tr>
+                <div class="table-responsive">
+                    <table class="table table-hover myTable">
+                        <thead>
+                            <tr align="center">
+                                <th>No</th>
+                                <th>Jenis Barang</th>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Merek</th>
+                                <th>Satuan</th>
+                                <th>Jumlah beli</th>
+                                <th>Kondisi</th>
+                                <th>Tanggal Beli</th>
+                                <th>Harga Beli</th>
+                                <th>Supplier</th>
+                                <th>Gambar</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php $no = 1; @endphp
+                            @foreach($data_barang as $barang)
+                            <tr align="center">
+                                <td>{{$no++}}</td>
+                                <td>{{$barang->jenis->jenis_barang}}</td>
+                                <td>{{$barang->kode_barang}}</td>
+                                <td>{{$barang->nama_barang}}</td>
+                                <td>{{$barang->merek}}</td>
+                                <td>{{$barang->satuan}}</td>
+                                <td>{{$barang->jumlah_beli}}</td>
+                                <td>{{$barang->kondisi}}</td>
+                                <td>{{$barang->tanggal_masuk}}</td>
+                                <td>Rp {{ number_format($barang->harga_beli, 0, ',', '.') }}</td>
+                                <td>{{$barang->supplier ? $barang->supplier->nama_supplier : '' }}</td>
+                                <td>
+                                    <img src="{{ url($barang->gambar) }}" width="240px" />
+                                </td>
+                                <td>
+                                    <a href="{{ url('barang/'.$barang->kode_barang.'/edit') }}" class="btn btn-warning btn-sm">Ubah
+                                        <a href="{{ url('barang/'.$barang->kode_barang.'/delete') }}" class="btn btn-danger btn-sm">Hapus
+                                            <a href="{{ url('barang/'.$barang->kode_barang.'/cetak') }}" class="btn btn-success btn-sm">Barcode
+                                </td>
+                            </tr>
 
-                        @endforeach
-                    </tbody>
-                </table>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
     </section>
     <!-- /.content -->
@@ -175,12 +177,17 @@
 
 @push('js')
 <script>
-    const kodesbarang = {!! json_encode($kodesbarang) !!};
+    const kodesbarang = {
+        !!json_encode($kodesbarang) !!
+    };
     $(document).ready(function() {
         $('select[name=jenis_barang]').change(function() {
             kodesbarang.filter(r => r.kode_jenis == $(this).find(":selected").data('kodejenis')).map(r => {
-                let { kode_jenis, lastid } = r;
-                const nextid = ('000' + (parseInt(lastid || '0')+1)).slice(-4);
+                let {
+                    kode_jenis,
+                    lastid
+                } = r;
+                const nextid = ('000' + (parseInt(lastid || '0') + 1)).slice(-4);
                 $('input[name=kode_barang]').val(`${kode_jenis}-LTI-${nextid}`);
             });
         });
