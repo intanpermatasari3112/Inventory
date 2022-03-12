@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Str;
+use DB;
+use App\Models\Barang;
 class service extends Controller
 {
     public function index()
@@ -18,7 +20,9 @@ class service extends Controller
     }
     public function lihatjenis()
     {
-        $data['data_jenis'] = \App\Models\Jenis::all();
+        //$data['data_jenis'] = \App\Models\Jenis::all();
+        $data['data_jenis'] = DB::table(DB::raw("(SELECT j.id_jenis_barang, j.jenis_barang, j.created_at, j.updated_at, j.kode_jenis, max(substring_index(substring_index(b.kode_barang,'-',-1),',',1)) as lastid FROM jenis j left join barang b on j.id_jenis_barang = b.jenis_barang group by j.id_jenis_barang, j.jenis_barang, j.created_at, j.updated_at, j.kode_jenis) x"))->get();
+    
         return response($data);
     }
     public function detailBarang(Request $request)
@@ -40,6 +44,7 @@ class service extends Controller
     {
         $kodeBarang = $request->post('kode_barang'); //ambil post value index nama_peserta
         $namaBarang = $request->post('nama_barang'); //ambil post value index id_asal
+        $kondisi = $request->post('kondisi');  //ambil post value index id_periode
         $jenisBarang = $request->post('jenis_barang');  //ambil post value index id_periode
         $tanggalMasuk = $request->post('tanggal_masuk');  //ambil post value index id_periode
         $hargaBeli = $request->post('harga_beli');  //ambil post value index id_periode
@@ -67,6 +72,7 @@ class service extends Controller
         $data = [
             'kode_barang' => $kodeBarang,
             'nama_barang' => $namaBarang,
+            'kondisi' => $kondisi,
             'jenis_barang' => $jenisBarang,
             'harga_beli' => $hargaBeli,
             'tanggal_masuk' => $tanggalMasuk,
