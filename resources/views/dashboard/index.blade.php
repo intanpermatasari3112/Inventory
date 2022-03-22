@@ -13,8 +13,6 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard v1</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -36,7 +34,7 @@
               <p>Barang Masuk</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="ion ion-stats-bars"></i>
             </div>
             <a href="/barang" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
@@ -48,10 +46,10 @@
             <div class="inner">
               <h3>{{ $jumlahBarangKeluar }}</h3>
 
-              <p>Barang Keluar</p>
+              <p>Barang Dipinjam</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="ion ion-bag"></i>
             </div>
             <a href="/barangkeluar" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
@@ -66,7 +64,7 @@
               <p>User</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="ion ion-person-add"></i>
             </div>
             <a href="/user" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
@@ -81,7 +79,7 @@
               <p>Stok</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="ion ion-pie-graph"></i>
             </div>
             <a href="/stok" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>

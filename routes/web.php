@@ -35,11 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/barang/{kode_barang}/update', [BarangController::class, 'update']);
     Route::get('/barang/{kode_barang}/delete', [BarangController::class, 'delete']);
     Route::get('/barang/{kode_barang}/cetak', [BarangController::class, 'cetak']);
-    Route::get('/barangkeluar',[BarangkeluarController::class, 'index']);
-    Route::post('/barangkeluar/create', [BarangkeluarController::class, 'create']);
-    Route::get('/barangkeluar/{kode_barang_keluar}/edit', [BarangkeluarController::class, 'edit']);
-    Route::post('/barangkeluar/{kode_barang_keluar}/update', [BarangkeluarController::class, 'update']);
-    Route::get('/barangkeluar/{kode_barang_keluar}/delete', [BarangkeluarController::class, 'delete']);
+   
     Route::get('/jenis', [JenisController::class, 'index']);
     Route::post('/jenis/create', [JenisController::class, 'create']);
     Route::get('/jenis/{id_jenis_barang}/edit', [JenisController::class, 'edit']);
@@ -66,6 +62,15 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['role:admin,manager'])->group(function () {
         Route::get('/laporan', [LaporanController::class, 'index']);
+        // Route::get('/laporankategori', [LaporanController::class, 'laporankategori']);
+    });
+    Route::middleware(['role:pengguna,admin'])->group(function () {
+        Route::get('/barangkeluar', [BarangkeluarController::class, 'index']);
+        Route::post('/barangkeluar/create', [BarangkeluarController::class, 'create']);
+        Route::get('/barangkeluar/{kode_barang_keluar}/edit', [BarangkeluarController::class, 'edit']);
+        Route::post('/barangkeluar/{kode_barang_keluar}/update', [BarangkeluarController::class, 'update']);
+        Route::get('/barangkeluar/{kode_barang_keluar}/delete', [BarangkeluarController::class, 'delete']);
+        
     });
 });
 
@@ -90,3 +95,11 @@ Route::get("webservice/hapusBarang", [service::class, "hapusBarang"]);
 
 //test route
 Route::get('/testing', [CobaController::class, 'index']);
+
+// route cetak barcode all
+Route::get('/barang/qr-batch', [BarangController::class, 'cetakBatch']);
+
+
+// // Laporan based jenis
+// Route::get('/laporan-based-jenis', [LaporanController::class, 'laporanbasedjenis']);
+// Route::get('/laporan-based-jenis-value', [LaporanController::class, 'laporanbasedjenisvalue']);

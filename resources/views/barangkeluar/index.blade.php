@@ -25,6 +25,7 @@
                         <li class="breadcrumb-item active">Data Barang Dipinjam</li>
                     </ol>
                 </div>
+                
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -140,7 +141,6 @@
                             <td>
                                 <a href="{{ url('barangkeluar/'.$barangkeluar->kode_barang_keluar.'/edit') }}" class="btn btn-warning btn-sm">Ubah
                                     <a href="{{ url('barangkeluar/'.$barangkeluar->kode_barang_keluar.'/delete') }}" class="btn btn-danger btn-sm">Hapus
-                                        <a href="{{ url('barangkeluar/'.$barangkeluar->kode_barang_keluar.'/cetak') }}" class="btn btn-success btn-sm">Barcode
                             </td>
                         </tr>
                         @endforeach

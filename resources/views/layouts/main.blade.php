@@ -37,7 +37,7 @@
                         @csrf
                         <!-- <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"> -->
                         <a class="nav-link" href="#" onclick="$(this).closest('form').submit()" role="button">
-                            <i class="fas fa-sign-out-alt"></i>
+                          <i class="fas fa-sign-out-alt"> Logout</i>
                         </a>
                     </form>
                 </li>
@@ -90,6 +90,15 @@
                                 </p>
                             </a>
                         </li>
+                        @if(Auth::user()->level=='PENGGUNA')
+                        <li class="nav-header">MANAJEMEN DATA</li>
+                        <li class="nav-item">
+                            <a href="/barangkeluar/" class="nav-link {{ request()->is('barangkeluar') ? 'active':'' }}">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>Barang Keluar</p>
+                            </a>
+                        </li>
+                        @endif
                         @if(Auth::user()->level=='ADMIN')
                         <li class="nav-header">MANAJEMEN DATA</li>
                         <li class="nav-item">
@@ -100,13 +109,13 @@
                         </li>
                         <li class="nav-item">
                             <a href="/barangkeluar/" class="nav-link {{ request()->is('barangkeluar') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon ion ion-bag"></i>
                                 <p>Barang Keluar</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/jenis/" class="nav-link {{ request()->is('jenis') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon  fas fa-bookmark"></i>
                                 <p>
                                     Jenis Barang
                                 </p>
@@ -114,7 +123,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="/stok/" class="nav-link {{ request()->is('stok') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon ion ion-pie-graph"></i>
                                 <p>
                                     Stok
                                 </p>
@@ -122,7 +131,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="/supplier/" class="nav-link {{ request()->is('supplier') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon fas fa-handshake"></i>
                                 <p>Supplier</p>
                             </a>
                         </li>
@@ -130,13 +139,14 @@
                         @if(in_array(Auth::user()->level, ['ADMIN']))
                         <li class="nav-item">
                             <a href="/user/" class="nav-link {{ request()->is('user') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class=" nav-icon ion ion-person-add"></i>
                                 <p>
                                     User
                                 </p>
                             </a>
                         </li>
                         @endif
+                        @if(in_array(Auth::user()->level, ['ADMIN', 'MANAGER']))
                         <li class="nav-header">LAPORAN</li>
                         <li class="nav-item">
                             <a href="/laporan/" class="nav-link {{ request()->is('laporan') ? 'active':'' }}">
@@ -144,6 +154,7 @@
                                 <p>Laporan Inventaris</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -159,7 +170,7 @@
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2022 <a href="https://www.lauwba.com">PT. LTI</a>.</strong> All rights reserved.
         </footer>
 
         <!-- Control Sidebar -->

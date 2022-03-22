@@ -77,7 +77,6 @@
                                                 <select name="level" id="level" class="form-select">
                                                     <option value="">--Pilih Level--</option>
                                                     <option value="ADMIN">Administrator</option>
-                                                    <option value="GUDANG">Bagian Gudang</option>
                                                     <option value="MANAGER">Manager</option>
                                                     <option value="PENGGUNA">Pengguna</option>
                                                 </select>

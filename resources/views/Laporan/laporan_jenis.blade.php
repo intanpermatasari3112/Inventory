@@ -1,4 +1,4 @@
-@extends('layouts.main')
+{{-- @extends('layouts.main')
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -100,4 +100,4 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-@endsection
+@endsection --}}

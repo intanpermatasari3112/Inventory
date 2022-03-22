@@ -51,7 +51,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="batasMin" class="form-label">Batas Minimal</label>
-                            <input name="batasMin" type="text" class="form-control" id="batasMin" aria-describedby="batasMin" placeholder="Masukkan Batas Minimal Barang" value="{{$stok->batasMin}}">
+                            <input name="batasMin" type="text" class="form-control" id="batasMin" aria-describedby="batasMin" placeholder="Masukkan Batas Minimal Barang" value="{{$stok->batasMin}}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="stok" class="form-label">Stok Barang</label>
