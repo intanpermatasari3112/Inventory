@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $countBarangKeluar= count($row);
 
         $row = DB::table('stok')
-        ->select(DB::raw('stok'))
+        ->select(DB::raw('stok'))->where(DB::raw('stok - batasMin'), '<=', '0')
         ->get();
         $countStok= count($row);
         $stok = new \App\Models\Stok;

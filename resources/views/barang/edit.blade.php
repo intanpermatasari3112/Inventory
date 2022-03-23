@@ -39,7 +39,7 @@
                         {{csrf_field()}}
                         <div class="mb-3">
                             <label for="kode_barang" class="form-label">Kode Barang</label>
-                            <input name="kode_barang" type="text" class="form-control" id="kode_barang" aria-describedby="kode_barang" placeholder="Masukkan Kode Barang" value="{{$barang->kode_barang}}">
+                            <input name="kode_barang" type="text" class="form-control" id="kode_barang" aria-describedby="kode_barang" placeholder="Masukkan Kode Barang" value="{{$barang->kode_barang}}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="nama_barang" class="form-label">Nama Barang</label>
@@ -57,13 +57,14 @@
                             <label for="jumlah_beli" class="form-label">Jumlah Beli</label>
                             <input name="jumlah_beli" type="text" class="form-control" id="jumlah_beli" aria-describedby="jumlah_beli" placeholder="Masukkan jumlah_beli" value="{{$barang->jumlah_beli}}">
                         </div>
+
                         <div class="mb-3">
                             <label for="kondisi" class="form-label">Kondisi</label>
                             <select name="kondisi" id="kondisi" class="form-select">
                                 <option value="">--Pilih kondisi--</option>
-                                <option {{$barang->kondisi == 'BARU' ? 'selected':''}}value="BARU">Baru</option>
-                                <option {{$barang->kondisi == 'BEKAS' ? 'selected':''}}value="BEKAS">Bekas</option>
-                                <option {{$barang->kondisi == 'RUSAK' ? 'selected':''}}value="RUSAK">Rusak</option>
+                                <option {{$barang->kondisi == 'Baru' ? 'selected':''}} value="Baru">Baru</option>
+                                <option {{$barang->kondisi == 'Bekas' ? 'selected':''}} value="Bekas">Bekas</option>
+                                <option {{$barang->kondisi == 'Rusak' ? 'selected':''}} value="Rusak">Rusak</option>
                             </select>
                         </div>
                         <div class=" mb-3">
@@ -83,12 +84,37 @@
                             <label for="harga_beli" class="form-label">Harga Beli</label>
                             <input name="harga_beli" type="int" class="form-control" id="harga_beli" aria-describedby="harga_beli" placeholder="Masukkan Harga Beli" value="{{$barang->harga_beli}}">
                         </div>
+                        <script>
+                            /* Dengan Rupiah */
+                            var harga_beli = document.getElementById("harga_beli");
+                            harga_beli.addEventListener("keyup", function(e) {
+                                harga_beli.value = formatRupiah(this.value, "Rp. ");
+                            });
+
+                            /* Fungsi */
+                            function formatRupiah(angka, prefix) {
+                                var number_string = angka.replace(/[^,\d]/g, "").toString(),
+                                    split = number_string.split(","),
+                                    sisa = split[0].length % 3,
+                                    rupiah = split[0].substr(0, sisa),
+                                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                                if (ribuan) {
+                                    separator = sisa ? "." : "";
+                                    rupiah += separator + ribuan.join(".");
+                                }
+
+                                rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+                                return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+                            }
+                        </script>
                         <div class="mb-3">
                             <label for="nama_supplier" class="form-label">Nama Supplier</label>
                             <select name="nama_supplier" id="kategori" class="form-control">
                                 <option value="">-- Silahkan pilih satu --</option>
                                 @foreach($supplier as $s)
-                                <option data-kodesupplier="{{ $s->id_supplier }}" value="{{ $s->id_supplier }}">{{$s->id_supplier}}-{{$s->nama_supplier}}</option>
+                                <option value="{{ $s->nama_supplier }}" {{$barang->nama_supplier==$s->nama_supplier ? "selected":""}}> {{$s->id_supplier}}-{{$s->nama_supplier}}</option>
+
                                 @endforeach
                             </select>
                         </div>

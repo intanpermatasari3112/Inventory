@@ -26,12 +26,31 @@
                     <div class="col-12">
                         <h2 class="card-title">Laporan Data Inventaris Barang</h2>
                     </div>
+                 
                     <div class="col-12">
                         <div class="d-flex justify-content-between">
                             <form action="" method="get" class="mt-2">
                                 <input type="date" name="dari_tgl" value="{{ request()->dari_tgl }}" class="form-control form-control-sm d-inline" style="width: auto;" id=""> s/d <input type="date" name="sampai_tgl" class="form-control form-control-sm d-inline" value="{{ request()->sampai_tgl }}" style="width: auto;" id="">
-                                <button class="btn btn-sm btn-success" type="submit">Lihat</button>
+                                   {{-- filter as jenis --}}
+                              
+
+                              {{-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ url('laporan-based-jenis') }}">Laporan all barang</a>
+                                @foreach ($jenis as $j)
+                                    <a href="{{ url('laporan-based-jenis?jenis-barang='. $j->id_jenis_barang) }}" class="dropdown-item">{{ $j->jenis_barang }}</a>
+                                @endforeach
+                              </div> --}}
+                              <select name="jenis" class=" form-control-sm d-inline">
+                                  <option value="">--Pilih Jenis--</option>
+                                  @foreach ($jenis as $j)
+                                  <option value="{{ $j->id_jenis_barang }}">{{ $j->jenis_barang }}</option>
+                              @endforeach
+                              </select>
+                              <button class="btn btn-sm btn-success" type="submit">Lihat</button>
+                             
+                              {{-- end filter as jenis --}}
                             </form>
+                         
                             <div>
                                 @php $tot = 0; @endphp
                                 @foreach($data_barang as $barang)

@@ -35,11 +35,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/barang/{kode_barang}/update', [BarangController::class, 'update']);
     Route::get('/barang/{kode_barang}/delete', [BarangController::class, 'delete']);
     Route::get('/barang/{kode_barang}/cetak', [BarangController::class, 'cetak']);
-    Route::get('/barangkeluar',[BarangkeluarController::class, 'index']);
-    Route::post('/barangkeluar/create', [BarangkeluarController::class, 'create']);
-    Route::get('/barangkeluar/{kode_barang_keluar}/edit', [BarangkeluarController::class, 'edit']);
-    Route::post('/barangkeluar/{kode_barang_keluar}/update', [BarangkeluarController::class, 'update']);
-    Route::get('/barangkeluar/{kode_barang_keluar}/delete', [BarangkeluarController::class, 'delete']);
     Route::get('/jenis', [JenisController::class, 'index']);
     Route::post('/jenis/create', [JenisController::class, 'create']);
     Route::get('/jenis/{id_jenis_barang}/edit', [JenisController::class, 'edit']);
@@ -66,6 +61,18 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['role:admin,manager'])->group(function () {
         Route::get('/laporan', [LaporanController::class, 'index']);
+        Route::get('/laporansupplier', [LaporanController::class, 'laporansupplier']);
+        Route::get('/laporanuser', [LaporanController::class, 'laporanuser']);
+    });
+    Route::middleware(['role:pengguna,admin'])->group(function () {
+        Route::get('/barangkeluar', [BarangkeluarController::class, 'index']);
+        Route::post('/barangkeluar/create', [BarangkeluarController::class, 'create']);
+        Route::post('/barangkeluar/{kode_barang_keluar}/accstatus', [BarangkeluarController::class, 'acc_status']);
+        Route::post('/barangkeluar/{kode_barang_keluar}/pengembalian', [BarangkeluarController::class, 'pengembalian']);
+        Route::get('/barangkeluar/{kode_barang_keluar}/edit', [BarangkeluarController::class, 'edit']);
+        Route::post('/barangkeluar/{kode_barang_keluar}/update', [BarangkeluarController::class, 'update']);
+        Route::get('/barangkeluar/{kode_barang_keluar}/delete', [BarangkeluarController::class, 'delete']);
+        
     });
 });
 
@@ -90,3 +97,6 @@ Route::get("webservice/hapusBarang", [service::class, "hapusBarang"]);
 
 //test route
 Route::get('/testing', [CobaController::class, 'index']);
+
+//cetak batch
+Route::get('qr-batch', [BarangController::class, 'cetakBatch']);

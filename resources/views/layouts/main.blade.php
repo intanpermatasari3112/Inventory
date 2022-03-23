@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inventaris</title>
       <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -90,6 +90,15 @@
                                 </p>
                             </a>
                         </li>
+                        @if(Auth::user()->level=='PENGGUNA')
+                        <li class="nav-header">MANAJEMEN DATA</li>
+                        <li class="nav-item">
+                            <a href="/barangkeluar/" class="nav-link {{ request()->is('barangkeluar') ? 'active':'' }}">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>Barang Dipinjam</p>
+                            </a>
+                        </li>
+                        @endif
                         @if(Auth::user()->level=='ADMIN')
                         <li class="nav-header">MANAJEMEN DATA</li>
                         <li class="nav-item">
@@ -101,7 +110,7 @@
                         <li class="nav-item">
                             <a href="/barangkeluar/" class="nav-link {{ request()->is('barangkeluar') ? 'active':'' }}">
                                 <i class="nav-icon fas fa-columns"></i>
-                                <p>Barang Keluar</p>
+                                <p>Barang Dipinjam</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -137,6 +146,7 @@
                             </a>
                         </li>
                         @endif
+                        @if(in_array(Auth::user()->level, ['ADMIN', 'MANAGER']))
                         <li class="nav-header">LAPORAN</li>
                         <li class="nav-item">
                             <a href="/laporan/" class="nav-link {{ request()->is('laporan') ? 'active':'' }}">
@@ -144,6 +154,19 @@
                                 <p>Laporan Inventaris</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/laporansupplier/" class="nav-link {{ request()->is('laporansupplier') ? 'active':'' }}">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>Laporan Supplier</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/laporanuser/" class="nav-link {{ request()->is('laporanuser') ? 'active':'' }}">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>Laporan User</p>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -157,9 +180,9 @@
 
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
+                <b>Version</b>
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2022 <a href="https://adminlte.io">PT LAUWBA TECHNO INDONESIA</a>.</strong> All rights reserved.
         </footer>
 
         <!-- Control Sidebar -->

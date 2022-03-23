@@ -34,7 +34,17 @@
                         <button type="button" class="btn btn-primary btn-sm float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Tambah Barang
                         </button>
+                        <button class="btn btn-success btn-sm float-right mr-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Cetak Barcode
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="{{ url('qr-batch') }}">Cetak All Barcode</a>
+                              @foreach ($jenis as $j)
+                                  <a href="{{ url('qr-batch?jenis-barang='. $j->id_jenis_barang) }}" class="dropdown-item">{{ $j->jenis_barang }}</a>
+                              @endforeach
+                            </div>
                     </div>
+                    
                     <div class="col-6">
                         <!-- Button trigger modal -->
 
@@ -51,7 +61,7 @@
                                             {{csrf_field()}}
                                             <div class="mb-3">
                                                 <label for="jenis_barang" class="form-label">Jenis Barang</label>
-                                                <select name="jenis_barang" id="kategori" class="form-control">
+                                                <select name="jenis_barang" id="kategori" class="form-select">
                                                     <option value="">-- Silahkan pilih satu --</option>
                                                     @foreach($jenis as $j)
                                                     <option data-kodejenis="{{ $j->kode_jenis }}" value="{{ $j->id_jenis_barang }}">{{$j->jenis_barang}}</option>
@@ -82,9 +92,9 @@
                                                 <label for="kondisi" class="form-label">Kondisi</label>
                                                 <select name="kondisi" id="kondisi" class="form-select">
                                                     <option value="">--Pilih kondisi--</option>
-                                                    <option value="BARU">Baru</option>
-                                                    <option value="BEKAS">Bekas</option>
-                                                    <option value="RUSAK">Rusak</option>
+                                                    <option value="Baru">Baru</option>
+                                                    <option value="Bekas">Bekas</option>
+                                                    <option value="Rusak">Rusak</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
@@ -95,12 +105,36 @@
                                                 <label for="harga_beli" class="form-label">Harga Beli</label>
                                                 <input name="harga_beli" type="int" class="form-control" id="harga_beli" aria-describedby="harga_beli" placeholder="Masukkan Harga Beli">
                                             </div>
+                                            <script>
+                                                /* Dengan Rupiah */
+                                                var harga_beli = document.getElementById("harga_beli");
+                                                harga_beli.addEventListener("keyup", function (e) {
+                                                 harga_beli.value = formatRupiah(this.value, "Rp. ");
+                                                });
+                                                
+                                                /* Fungsi */
+                                                function formatRupiah(angka, prefix) {
+                                                 var number_string = angka.replace(/[^,\d]/g, "").toString(),
+                                                   split = number_string.split(","),
+                                                   sisa = split[0].length % 3,
+                                                   rupiah = split[0].substr(0, sisa),
+                                                   ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+                                                
+                                                 if (ribuan) {
+                                                   separator = sisa ? "." : "";
+                                                   rupiah += separator + ribuan.join(".");
+                                                 }
+                                                
+                                                 rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+                                                 return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+                                                }                                               
+                                            </script>
                                             <div class="mb-3">
                                                 <label for="nama_supplier" class="form-label">Nama Supplier</label>
-                                                <select name="nama_supplier" id="kategori" class="form-control">
+                                                <select name="nama_supplier" id="kategori" class="form-select">
                                                     <option value="">-- Silahkan pilih satu --</option>
                                                     @foreach($supplier as $s)
-                                                    <option data-kodesupplier="{{ $s->id_supplier }}" value="{{ $s->id_supplier }}">{{$s->id_supplier}}-{{$s->nama_supplier}}</option>
+                                                    <option value="{{ $s->nama_supplier }}" > {{$s->id_supplier}}-{{$s->nama_supplier}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -159,6 +193,7 @@
                                     <img src="{{ url($barang->gambar) }}" width="240px" />
                                 </td>
                                 <td>
+                                <a href="{{ url('barang/'.$barang->kode_barang.'/tambahstok') }}" class="btn btn-info btn-sm">Tambah Stok
                                     <a href="{{ url('barang/'.$barang->kode_barang.'/edit') }}" class="btn btn-warning btn-sm">Ubah
                                         <a href="{{ url('barang/'.$barang->kode_barang.'/delete') }}" class="btn btn-danger btn-sm">Hapus
                                             <a href="{{ url('barang/'.$barang->kode_barang.'/cetak') }}" class="btn btn-success btn-sm">Barcode
@@ -177,9 +212,7 @@
 
 @push('js')
 <script>
-    const kodesbarang = {
-        !!json_encode($kodesbarang) !!
-    };
+    const kodesbarang = {!!json_encode($kodesbarang) !!};
     $(document).ready(function() {
         $('select[name=jenis_barang]').change(function() {
             kodesbarang.filter(r => r.kode_jenis == $(this).find(":selected").data('kodejenis')).map(r => {

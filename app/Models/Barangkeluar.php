@@ -9,7 +9,7 @@ class Barangkeluar extends Model
 {
     protected $primaryKey = "kode_barang_keluar";
     protected $table = 'barang_keluar';
-    protected $fillable = ['kode_barang_keluar', 'kode_barang', 'jenis_barang', 'tanggal_keluar', 'jumlah', 'pengguna', 'keterangan'];
+    protected $fillable = ['kode_barang_keluar', 'kode_barang', 'jenis_barang', 'tanggal_keluar', 'jumlah', 'pengguna', 'status', 'alasan_pinjam'];
     public function barang() {
     return $this->hasOne(Barang::class, "kode_barang", "nama_barang");
 }

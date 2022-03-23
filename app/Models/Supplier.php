@@ -9,5 +9,5 @@ class Supplier extends Model
 {
     protected $primaryKey = "id_supplier";
     protected $table = 'supplier';
-    protected $fillable = ['nama_supplier','kontak', 'alamat'];
+    protected $fillable = ['id_supplier', 'nama_supplier','kontak', 'alamat'];
 }

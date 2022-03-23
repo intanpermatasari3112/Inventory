@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Jenis;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class BarangController extends Controller
     {
         $file = $request->file("gambar");
         $insert = $request->all();
+        $insert['harga_beli'] = str_replace(".", "", str_replace("Rp. ", "", $insert['harga_beli']));
         $insert['gambar'] = $file->storeAs('berkas', Str::random(25) .'.'. $file->getClientOriginalExtension());
         \App\Models\Barang::create($insert);
         return redirect('/barang')->with('sukses','Data berhasil diinput');
@@ -37,8 +39,11 @@ class BarangController extends Controller
     }
     public function update(Request $request, $kode_barang)
     {
+        // return request()->all();
         $file = $request->file("gambar");
         $update = $request->all();
+        $update = $request->all();
+        $update['harga_beli'] = str_replace(".", "", str_replace("Rp. ", "", $update['harga_beli']));
         if($file){
             $update['gambar'] = $file->storeAs('berkas', Str::random(25) .'.'. $file->getClientOriginalExtension());
         }
@@ -64,5 +69,16 @@ class BarangController extends Controller
     {
         $data['barang'] = \App\Models\Barang::find($kode_barang);
         return view('barang.cetak',$data);
+    }
+
+    public function cetakBatch (Request $request)
+    {   
+        $jenis = $request->get('jenis-barang');
+        if(!empty($jenis)){
+            $data ['barang'] = Barang::where('jenis_barang', $jenis)->get();
+        }else{
+            $data['barang'] = Barang::all();
+        }
+        return view( 'barang.cetak_batch', $data);
     }
 }
