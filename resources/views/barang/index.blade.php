@@ -34,15 +34,22 @@
                         <button type="button" class="btn btn-primary btn-sm float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Tambah Barang
                         </button>
-                        <button class="btn btn-success btn-sm float-right mr-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                        {{-- <a href="{{ url('barang/qr-batch') }}">
+                        <button type="button" class="btn btn-success btn-sm float-right mr-2">
+                             Cetak All Barcode
+                        </button>
+                        </a>  --}}
+                            <button class="btn btn-danger btn-sm float-right mr-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Cetak Barcode
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" href="{{ url('qr-batch') }}">Cetak All Barcode</a>
+                              <a class="dropdown-item" href="{{ url('barang/qr-batch') }}">Cetak All Barcode</a>
                               @foreach ($jenis as $j)
-                                  <a href="{{ url('qr-batch?jenis-barang='. $j->id_jenis_barang) }}" class="dropdown-item">{{ $j->jenis_barang }}</a>
+                                  <a href="{{ url('barang/qr-batch?jenis-barang='. $j->id_jenis_barang) }}" class="dropdown-item">{{ $j->jenis_barang }}</a>
                               @endforeach
                             </div>
+                          
                     </div>
                     
                     <div class="col-6">
@@ -101,9 +108,10 @@
                                                 <label for="tanggal_masuk" class="form-label">Tanggal Beli</label>
                                                 <input name="tanggal_masuk" type="date" class="form-control" id="tanggal_masuk" aria-describedby="tanggal_masuk" placeholder="Pilih Tanggal">
                                             </div>
+                                           
                                             <div class="mb-3">
                                                 <label for="harga_beli" class="form-label">Harga Beli</label>
-                                                <input name="harga_beli" type="int" class="form-control" id="harga_beli" aria-describedby="harga_beli" placeholder="Masukkan Harga Beli">
+                                                <input type="text" name="harga_beli"  class="form-control " id="harga_beli" aria-describedby="harga_beli" placeholder="Masukkan Harga Beli"/>
                                             </div>
                                             <script>
                                                 /* Dengan Rupiah */
@@ -128,7 +136,7 @@
                                                  rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
                                                  return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
                                                 }                                               
-                                            </script>
+                                                 </script>
                                             <div class="mb-3">
                                                 <label for="nama_supplier" class="form-label">Nama Supplier</label>
                                                 <select name="nama_supplier" id="kategori" class="form-select">
@@ -199,7 +207,6 @@
                                             <a href="{{ url('barang/'.$barang->kode_barang.'/cetak') }}" class="btn btn-success btn-sm">Barcode
                                 </td>
                             </tr>
-
                             @endforeach
                         </tbody>
                     </table>
@@ -214,6 +221,14 @@
 <script>
     const kodesbarang = {!!json_encode($kodesbarang) !!};
     $(document).ready(function() {
+        // $('#harga_beli').mask('#.##0', {reverse: true});
+        // var harga_beli = document.getElementById("harga_beli");
+        //                                         harga_beli.addEventListener("keyup", function(e) {
+        //                                         harga_beli.value = convertRupiah(this.value, "Rp. ");
+        //                                         });
+        //                                         harga_beli.addEventListener('keydown', function(event) {
+	    //                                         return isNumberKey(event);
+        //                                         });
         $('select[name=jenis_barang]').change(function() {
             kodesbarang.filter(r => r.kode_jenis == $(this).find(":selected").data('kodejenis')).map(r => {
                 let {
@@ -225,5 +240,6 @@
             });
         });
     });
+   
 </script>
 @endpush

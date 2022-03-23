@@ -37,7 +37,7 @@
                         @csrf
                         <!-- <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"> -->
                         <a class="nav-link" href="#" onclick="$(this).closest('form').submit()" role="button">
-                            <i class="fas fa-sign-out-alt"></i>
+                          <i class="fas fa-sign-out-alt"> Logout</i>
                         </a>
                     </form>
                 </li>
@@ -115,7 +115,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="/jenis/" class="nav-link {{ request()->is('jenis') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon  fas fa-bookmark"></i>
                                 <p>
                                     Jenis Barang
                                 </p>
@@ -123,7 +123,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="/stok/" class="nav-link {{ request()->is('stok') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon ion ion-pie-graph"></i>
                                 <p>
                                     Stok
                                 </p>
@@ -131,7 +131,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="/supplier/" class="nav-link {{ request()->is('supplier') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class="nav-icon fas fa-handshake"></i>
                                 <p>Supplier</p>
                             </a>
                         </li>
@@ -139,7 +139,7 @@
                         @if(in_array(Auth::user()->level, ['ADMIN']))
                         <li class="nav-item">
                             <a href="/user/" class="nav-link {{ request()->is('user') ? 'active':'' }}">
-                                <i class="nav-icon fas fa-columns"></i>
+                                <i class=" nav-icon ion ion-person-add"></i>
                                 <p>
                                     User
                                 </p>

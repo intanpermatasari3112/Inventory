@@ -18,7 +18,7 @@
                 Cetak Halaman</button>
         </div>      
         <div class="row ">
-            @foreach ($barang as $item)
+            @foreach ($barang_elektronik as $item)
             <div class="col-sm-3 p-4">
                 <div style='text-align: center; '>
                     <!-- insert your custom barcode setting your data in the GET parameter "data" -->

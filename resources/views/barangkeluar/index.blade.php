@@ -25,6 +25,7 @@
                         <li class="breadcrumb-item active">Data Barang Dipinjam</li>
                     </ol>
                 </div>
+                
             </div>
         </div><!-- /.container-fluid -->
     </section>

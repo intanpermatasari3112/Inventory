@@ -57,7 +57,6 @@
                             <label for="jumlah_beli" class="form-label">Jumlah Beli</label>
                             <input name="jumlah_beli" type="text" class="form-control" id="jumlah_beli" aria-describedby="jumlah_beli" placeholder="Masukkan jumlah_beli" value="{{$barang->jumlah_beli}}">
                         </div>
-
                         <div class="mb-3">
                             <label for="kondisi" class="form-label">Kondisi</label>
                             <select name="kondisi" id="kondisi" class="form-select">
@@ -87,27 +86,27 @@
                         <script>
                             /* Dengan Rupiah */
                             var harga_beli = document.getElementById("harga_beli");
-                            harga_beli.addEventListener("keyup", function(e) {
-                                harga_beli.value = formatRupiah(this.value, "Rp. ");
+                            harga_beli.addEventListener("keyup", function (e) {
+                             harga_beli.value = formatRupiah(this.value, "Rp. ");
                             });
-
+                            
                             /* Fungsi */
                             function formatRupiah(angka, prefix) {
-                                var number_string = angka.replace(/[^,\d]/g, "").toString(),
-                                    split = number_string.split(","),
-                                    sisa = split[0].length % 3,
-                                    rupiah = split[0].substr(0, sisa),
-                                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                                if (ribuan) {
-                                    separator = sisa ? "." : "";
-                                    rupiah += separator + ribuan.join(".");
-                                }
-
-                                rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-                                return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
-                            }
-                        </script>
+                             var number_string = angka.replace(/[^,\d]/g, "").toString(),
+                               split = number_string.split(","),
+                               sisa = split[0].length % 3,
+                               rupiah = split[0].substr(0, sisa),
+                               ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+                            
+                             if (ribuan) {
+                               separator = sisa ? "." : "";
+                               rupiah += separator + ribuan.join(".");
+                             }
+                            
+                             rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+                             return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+                            }                                               
+                             </script>
                         <div class="mb-3">
                             <label for="nama_supplier" class="form-label">Nama Supplier</label>
                             <select name="nama_supplier" id="kategori" class="form-control">

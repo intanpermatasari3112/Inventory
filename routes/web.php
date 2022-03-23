@@ -98,5 +98,10 @@ Route::get("webservice/hapusBarang", [service::class, "hapusBarang"]);
 //test route
 Route::get('/testing', [CobaController::class, 'index']);
 
-//cetak batch
-Route::get('qr-batch', [BarangController::class, 'cetakBatch']);
+// route cetak barcode all
+Route::get('/barang/qr-batch', [BarangController::class, 'cetakBatch']);
+
+
+// // Laporan based jenis
+// Route::get('/laporan-based-jenis', [LaporanController::class, 'laporanbasedjenis']);
+// Route::get('/laporan-based-jenis-value', [LaporanController::class, 'laporanbasedjenisvalue']);

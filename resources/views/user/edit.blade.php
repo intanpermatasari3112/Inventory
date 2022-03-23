@@ -66,7 +66,7 @@
                             <select name="level" id="level" class="form-select">
                                 <option value="">--Pilih Level--</option>
                                 <option {{ $user->level == 'ADMIN' ? 'selected':'' }} value="ADMIN">Administrator</option>
-                                <option {{ $user->level == 'GUDANG' ? 'selected':'' }} value="GUDANG">Bagian Gudang</option>
+                                <option {{ $user->level == 'PENGGUNA' ? 'selected':'' }} value="PENGGUNA">Pengguna</option>
                                 <option {{ $user->level == 'MANAGER' ? 'selected':'' }} value="MANAGER">Manager</option>
                             </select>
                         </div>
