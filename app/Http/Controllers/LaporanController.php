@@ -8,11 +8,13 @@ use App\Models\Barang;
 use App\Models\Jenis;
 use App\Models\Supplier;
 use App\Models\User;
+use DB;
 
 class LaporanController extends Controller
 {
     public function index(Request $request)
     {
+        $data_barang_keluar = new \App\Models\Barangkeluar();
         $barang = new \App\Models\Barang();
         if(request()->dari_tgl)
             $barang = $barang->where('tanggal_masuk', '>=', request()->dari_tgl);
@@ -23,6 +25,7 @@ class LaporanController extends Controller
         $data['data_barang'] = $barang->get();
         $data['stok'] = Stok::all();
         $data['jenis'] = Jenis::all();
+        $data['data_barang_keluar'] = $data_barang_keluar->orderBy('kode_barang_keluar', 'asc')->get();
         return view('laporan.index',$data);
     }
     public function laporansupplier()
@@ -44,8 +47,11 @@ class LaporanController extends Controller
     }
     public function laporanstok()
     { 
+        $stok = new \App\Models\Stok;
+        $data['data_stok'] =$stok->get();
+        if(request()->status_stok == 'habis')
+            $stok = $stok->where(DB::raw('stok - batasMin'), '<=', '0');
         $last = \App\Models\Stok::orderBy('kodeStok', 'desc')->first();
-        $data['data_stok'] = $stok->get();
         $data['barang'] = DB::table(DB::raw("(SELECT b.* FROM `barang` b LEFT JOIN `stok` s on s.kode_barang = b.kode_barang where s.kodeStok is null) x"))->get();
         $data['nextid'] = $last ? $last->kodeStok+1 : 1;
         return view('laporan.laporanstok',$data);

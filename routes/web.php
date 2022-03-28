@@ -11,6 +11,7 @@ use App\Http\Controllers\JenisController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\service;
 /*
 |--------------------------------------------------------------------------
@@ -63,16 +64,23 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/laporan', [LaporanController::class, 'index']);
         Route::get('/laporansupplier', [LaporanController::class, 'laporansupplier']);
         Route::get('/laporanuser', [LaporanController::class, 'laporanuser']);
+        Route::get('/laporanstok', [LaporanController::class, 'laporanstok']);
     });
     Route::middleware(['role:pengguna,admin'])->group(function () {
         Route::get('/barangkeluar', [BarangkeluarController::class, 'index']);
         Route::post('/barangkeluar/create', [BarangkeluarController::class, 'create']);
-        Route::post('/barangkeluar/{kode_barang_keluar}/accstatus', [BarangkeluarController::class, 'acc_status']);
+        Route::post('/barangkeluar/{kode_barang_keluar}/accstatus', [BarangkeluarController::class, 'acc_pinjam']);
         Route::post('/barangkeluar/{kode_barang_keluar}/pengembalian', [BarangkeluarController::class, 'pengembalian']);
         Route::get('/barangkeluar/{kode_barang_keluar}/edit', [BarangkeluarController::class, 'edit']);
         Route::post('/barangkeluar/{kode_barang_keluar}/update', [BarangkeluarController::class, 'update']);
         Route::get('/barangkeluar/{kode_barang_keluar}/delete', [BarangkeluarController::class, 'delete']);
-        
+    });
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/satuan', [SatuanController::class, 'index']);
+        Route::post('/satuan/create', [SatuanController::class, 'create']);
+        Route::get('/satuan/{id}/edit', [SatuanController::class, 'edit']);
+        Route::post('/satuan/{id}/update', [SatuanController::class, 'update']);
+        Route::get('/satuan/{id}/delete', [SatuanController::class, 'delete']);
     });
 });
 

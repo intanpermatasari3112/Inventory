@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Jenis;
+use App\Models\Satuan;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Str;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class BarangController extends Controller
@@ -18,6 +20,8 @@ class BarangController extends Controller
         // $data['data_barang_cetak'] = \App\Models\Barang::all();
         $data['jenis'] = Jenis::all();
         $data['supplier'] = Supplier::all();
+        $data['satuan'] = Satuan::all();
+        $data['history'] = DB::table('history_transaksi')->where('jenis_transaksi', 'MUTASI_BARANG')->get();
         $data['kodesbarang'] = DB::table(DB::raw("(SELECT j.kode_jenis, max(substring_index(substring_index(b.kode_barang,'-',-1),',',1)) as lastid FROM jenis j left join barang b on j.id_jenis_barang = b.jenis_barang group by j.kode_jenis) x"))->get();
         return view('barang.index',$data);
     }
@@ -47,8 +51,10 @@ class BarangController extends Controller
     }
     public function edit($kode_barang)
     {
-        $data['barang'] = \App\Models\Barang::find($kode_barang);
+        $barang = \App\Models\Barang::find($kode_barang);
+        $data['barang'] = $barang;
         $data['jenis'] = Jenis::all();
+        $data['satuan'] = Satuan::where('id_jenis', $barang->jenis->id_jenis_barang)->get();
         $data['supplier'] = Supplier::all();
         return view('barang/edit', $data);
     }
@@ -72,7 +78,6 @@ class BarangController extends Controller
         // return request()->all();
         $file = $request->file("gambar");
         $update = $request->all();
-        $update = $request->all();
         $update['harga_beli'] = str_replace(".", "", str_replace("Rp. ", "", $update['harga_beli']));
         if($file){
             $fileName =  Str::random(25) .'.'. $file->getClientOriginalExtension();
@@ -88,6 +93,14 @@ class BarangController extends Controller
         if($berkaslama && $file){
             Storage::delete($berkaslama);
         }
+
+        // tambah ke history
+        DB::table('history_transaksi')->insert([
+            'nama_transaksi' => 'Penambahan '. request()->jumlah_beli .' barang, dari pengubahan barang masuk ' . $data->kode_barang,
+            'jenis_transaksi' => 'MUTASI_BARANG',
+            'user_id' => Auth::user()->id
+        ]);
+
         return redirect('/barang')->with('sukses', 'Data berhasil diupdate');
     }
 

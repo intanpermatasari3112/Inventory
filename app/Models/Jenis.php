@@ -9,5 +9,5 @@ class Jenis extends Model
 {
     protected $primaryKey = "id_jenis_barang";
     protected $table = 'jenis';
-    protected $fillable = ['jenis_barang'];
+    protected $fillable = ['jenis_barang', 'kode_jenis'];
 }

@@ -44,7 +44,7 @@
     <link href="signin.css" rel="stylesheet">
 </head>
 
-<body class="text-center">
+<body background="{{asset('assets/dist/img/bg1.jpg')}}" class="text-center">
 
     <main class="form-signin">
         <form method="post">
