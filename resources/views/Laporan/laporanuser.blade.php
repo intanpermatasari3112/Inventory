@@ -19,6 +19,9 @@
                         <li class="breadcrumb-item active">Laporan Data User</li>
                     </ol>
                 </div>
+                <div class="col-sm-6 text-end">
+                    <a href="{{ url('/laporanuser/cetak') }}" target="_blank" class="btn btn-outline-success">Cetak Laporan</a>
+                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>

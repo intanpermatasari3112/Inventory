@@ -62,9 +62,15 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['role:admin,manager'])->group(function () {
         Route::get('/laporan', [LaporanController::class, 'index']);
+        Route::get('/laporan/cetak', [LaporanController::class, 'index_cetak']);
         Route::get('/laporansupplier', [LaporanController::class, 'laporansupplier']);
+        Route::get('/laporansupplier/cetak', [LaporanController::class, 'laporansupplier_cetak']);
         Route::get('/laporanuser', [LaporanController::class, 'laporanuser']);
+        Route::get('/laporanuser/cetak', [LaporanController::class, 'laporanuser_cetak']);
         Route::get('/laporanstok', [LaporanController::class, 'laporanstok']);
+        Route::get('/laporanstok/cetak', [LaporanController::class, 'laporanstok_cetak']);
+        Route::get('/laporanbarangdipinjam', [LaporanController::class, 'laporanbarangdipinjam']);
+        Route::get('/laporanbarangdipinjam/cetak', [LaporanController::class, 'laporanbarangdipinjam_cetak']);
     });
     Route::middleware(['role:pengguna,admin'])->group(function () {
         Route::get('/barangkeluar', [BarangkeluarController::class, 'index']);
