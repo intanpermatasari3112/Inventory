@@ -93,9 +93,13 @@
                                                 <select name="satuan" id="kategori" class="form-select">
                                                     <option value="">-- Silahkan pilih satu --</option>
                                                     @foreach($satuan as $s)
-                                                    <option data-idjenis="{{ $s->id_jenis }}" value="{{ $s->urai }}">{{$s->urai}}</option>
+                                                    <option data-idjenis="{{ json_encode($s->id_jenis) }}" value="{{ $s->urai }}">{{$s->urai}}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="spesifikasi" class="form-label">Spesifikasi</label>
+                                                <input name="spesifikasi" type="text" class="form-control" id="spesifikasi" aria-describedby="spesifikasi" placeholder="Masukkan Nama Spesifikasi">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="jumlah_beli" class="form-label">Jumlah Beli</label>
@@ -179,6 +183,7 @@
                                 <th>Nama Barang</th>
                                 <th>Merek</th>
                                 <th>Satuan</th>
+                                <th>Spesifikasi</th>
                                 <th>Jumlah beli</th>
                                 <th>Kondisi</th>
                                 <th>Tanggal Beli</th>
@@ -198,6 +203,7 @@
                                 <td>{{$barang->nama_barang}}</td>
                                 <td>{{$barang->merek}}</td>
                                 <td>{{$barang->satuan}}</td>
+                                <td>{{$barang->spesifikasi}}</td>
                                 <td>{{$barang->jumlah_beli}}</td>
                                 <td>{{$barang->kondisi}}</td>
                                 <td>{{$barang->tanggal_masuk}}</td>
@@ -235,7 +241,6 @@
                             <th>No</th>
                             <th>Transaksi</th>
                             <th>Tanggal</th>
-                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -245,7 +250,6 @@
                             <td>{{$no++}}</td>
                             <td>{{$r->nama_transaksi}}</td>
                             <td>{{$r->tanggal_transaksi}}</td>
-                            <td>{{$r->keterangan}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -279,7 +283,10 @@
                     lastid
                 } = r;
                 $('select[name=satuan] option[value!=""]').hide();
-                $('select[name=satuan] option[value!=""][data-idjenis='+id_jenis_barang+']').show();
+                $('select[name=satuan] option[value!=""]').each((i, el) => {
+                    if($(el).data('idjenis').includes(id_jenis_barang))
+                        $(el).show();
+                });
                 $('select[name=satuan]').val('');
                 const nextid = ('000' + (parseInt(lastid || '0') + 1)).slice(-4);
                 $('input[name=kode_barang]').val(`${kode_jenis}-LTI-${nextid}`);

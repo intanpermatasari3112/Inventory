@@ -12,7 +12,7 @@
                 </div>
                 @endif
                 <div class="col-sm-6">
-                    <h1>Laporan Data User</h1>
+                    <h1>Laporan Barang Dipinjam</h1>
 
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -41,7 +41,7 @@
                     <thead>
                         <tr align="center">
                             <th>No</th>
-                            <th>Kode Barang Dipinjam</th>
+                            <th>Kode Peminjaman</th>
                             <th>Jenis Barang</th>
                             <th>Nama Barang</th>
                             <th>Pengguna</th>
@@ -59,7 +59,7 @@
                             <td>{{$no++}}</td>
                             <td>{{$barangkeluar->kode_barang_keluar}}</td>
                             <td>{{$barangkeluar->jenis}}</td>
-                            <td>{{$barangkeluar->kode_barang . ' ' . $barangkeluar->nama_barang}}</td>
+                            <td>{{$barangkeluar->nama_barang}}</td>
                             <td>{{$barangkeluar->email}}</td>
                             <td>{{$barangkeluar->tanggal_keluar}}</td>
                             <td>{{$barangkeluar->jumlah}}</td>

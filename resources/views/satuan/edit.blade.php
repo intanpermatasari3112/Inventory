@@ -38,10 +38,10 @@
                         {{csrf_field()}}
                         <div class="mb-3">
                             <label for="id_jenis" class="form-label">Kode Barang</label>
-                            <select name="id_jenis" id="id_jenis" class="form-control">
+                            <select multiple name="id_jenis[]" id="id_jenis" class="form-select d-block select2">
                                 <option value="">-- Silahkan pilih satu --</option>
                                 @foreach($jenis as $j)
-                                <option {{ $j->id_jenis_barang == $satuan->id_jenis ? 'selected': '' }} value="{{ $j->id_jenis_barang }}">{{$j->jenis_barang}}</option>
+                                <option {{ in_array($j->id_jenis_barang, $satuan->id_jenis) ? 'selected': '' }} value="{{ $j->id_jenis_barang }}">{{$j->jenis_barang}}</option>
                                 @endforeach
                             </select>
                         </div>

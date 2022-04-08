@@ -127,6 +127,19 @@
             <h2 class="card-title">Data Barang Dipinjam</h2>
           </div>
         </div>
+        <div class="col-12">
+                        <div class="d-flex justify-content-between">
+                            <form action="" method="get" class="mt-2">
+                                <select name="status_pinjam" id="status_pinjam" class="form-control form-control-sm d-inline" style="width: auto;">
+                                <option value="">-- Semua Status Pinjam --</option>
+                                <option value="PENDING">PENDING</option>
+                                <option value="DISETUJUI">DISETUJUI</option>
+                                <option value="DITOLAK">DITOLAK</option>
+                                </select>
+                                <button class="btn btn-sm btn-success" type="submit">Lihat</button>
+                            </form>
+                        </div>
+                    </div>
       </div>
       <div class="card-body">
         <table class="table table-hover myTable">
@@ -172,19 +185,6 @@
                 @endif
               </td>
               <td>{{$barangkeluar->alasan_pinjam}}</td>
-              <td>
-                @if(Auth::user()->level == 'ADMIN')
-                @if ($barangkeluar->status_pinjam=='PENDING')
-                <button type="button" class="btn btn-peminjaman btn-warning btn-sm" data-kodebarangkeluar="{{$barangkeluar->kode_barang_keluar}}" data-jenis="{{$barangkeluar->jenis}}" data-kodebarang="{{$barangkeluar->nama_barang}}" data-namabarang="{{$barangkeluar->nama_barang}}" data-email="{{$barangkeluar->email}}" data-tanggalkeluar="{{$barangkeluar->tanggal_keluar}}" data-alasanpinjam="{{$barangkeluar->alasan_pinjam}}" data-jumlah="{{$barangkeluar->jumlah}}">Peminjaman</button>
-                @endif
-                @elseif(Auth::user()->level == 'PENGGUNA')
-                @if ($barangkeluar->status_pinjam=='DISETUJUI' && $barangkeluar->status_kembali == 'BELUM')
-                <button class="btn btn-pengembalian btn-warning" data-kodebarangkeluar="{{$barangkeluar->kode_barang_keluar}}">Pengembalian</button>
-                @elseif ($barangkeluar->status_pinjam=='PENDING')
-                <button class="btn btn-batal-pinjam btn-outline-danger" data-kodebarangkeluar="{{$barangkeluar->kode_barang_keluar}}">Batal</button>
-                @endif
-                @endif
-              </td>
             </tr>
             @endforeach
           </tbody>

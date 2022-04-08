@@ -55,9 +55,13 @@
                             <select name="satuan" id="kategori" class="form-select">
                                 <option value="">-- Silahkan pilih satu --</option>
                                 @foreach($satuan as $s)
-                                    <option {{$barang->satuan == $s->urai ? 'selected':''}} data-idjenis="{{ $s->id_jenis }}" value="{{ $s->urai }}">{{$s->urai}}</option>
+                                    <option {{$barang->satuan == $s->urai ? 'selected':''}} value="{{ $s->urai }}">{{$s->urai}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="spesifikasi" class="form-label">Spesifikasi</label>
+                            <input name="spesifikasi" type="text" class="form-control" id="spesifikasi" aria-describedby="spesifikasi" placeholder="Masukkan Nama Spesifikasi" value="{{$barang->spesifikasi}}">
                         </div>
                         <div class="mb-3">
                             <label for="jumlah_beli" class="form-label">Jumlah Beli</label>
@@ -119,7 +123,6 @@
                                 <option value="">-- Silahkan pilih satu --</option>
                                 @foreach($supplier as $s)
                                 <option value="{{ $s->nama_supplier }}" {{$barang->nama_supplier==$s->nama_supplier ? "selected":""}}> {{$s->id_supplier}}-{{$s->nama_supplier}}</option>
-
                                 @endforeach
                             </select>
                         </div>

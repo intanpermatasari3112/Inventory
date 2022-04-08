@@ -13,6 +13,11 @@ class Satuan extends Model
     protected $table = 'satuan';
     protected $fillable = ['urai', 'id_jenis'];
 
+    protected $casts = [
+        'id_jenis' => 'json',
+    ];
+
+
     public function jenis() {
         return $this->hasOne(Jenis::class, 'id_jenis_barang', 'id_jenis');
     }

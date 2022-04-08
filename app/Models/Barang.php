@@ -10,7 +10,7 @@ class Barang extends Model
     protected $keyType = "string";
     protected $primaryKey = "kode_barang";
     protected $table = 'barang';
-    protected $fillable = ['jenis_barang','kode_barang', 'nama_barang', 'merek','kondisi','satuan','jumlah_beli', 'tanggal_masuk', 'harga_beli', 'nama_supplier', 'gambar'];
+    protected $fillable = ['jenis_barang','kode_barang', 'nama_barang', 'merek','kondisi','satuan', 'spesifikasi', 'jumlah_beli', 'tanggal_masuk', 'harga_beli', 'nama_supplier', 'gambar'];
     public function jenis (){
         return $this->hasOne(Jenis::class, "id_jenis_barang", "jenis_barang");
     }

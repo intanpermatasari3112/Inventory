@@ -51,9 +51,10 @@
                                             {{csrf_field()}}
                                             <div class="mb-3">
                                                 <label for="id_jenis" class="form-label">Jenis</label>
-                                                <select name="id_jenis" id="kategori" class="form-select">
+                                                <select multiple name="id_jenis[]" id="kategori" class="form-select d-block select2">
                                                     <option value="">-- Silahkan pilih satu --</option>
-                                                    @foreach($jenis as $j)
+                                                    @php $jeniss = $jenis->get() @endphp
+                                                    @foreach($jeniss as $j)
                                                     <option value="{{ $j->id_jenis_barang }}">{{$j->jenis_barang}}</option>
                                                     @endforeach
                                                 </select>
@@ -89,7 +90,11 @@
                         @foreach($satuan as $r)
                         <tr align="center">
                             <td>{{$no++}}</td>
-                            <td>{{$r->jenis->jenis_barang}}</td>
+                            <td>
+                                @foreach($r->id_jenis as $id_jenis)
+                                {{ $jenis->where('id_jenis_barang', $id_jenis)->first()->jenis_barang }},
+                                @endforeach
+                            </td>
                             <td>{{$r->urai}}</td>
                             <td><a href="/satuan/{{$r->id}}/edit" class="btn btn-warning btn-sm">Ubah
                                     <a href="/satuan/{{$r->id}}/delete" class="btn btn-danger btn-sm">Hapus</td>

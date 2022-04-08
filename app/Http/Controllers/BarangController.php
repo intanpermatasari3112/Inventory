@@ -54,7 +54,8 @@ class BarangController extends Controller
         $barang = \App\Models\Barang::find($kode_barang);
         $data['barang'] = $barang;
         $data['jenis'] = Jenis::all();
-        $data['satuan'] = Satuan::where('id_jenis', $barang->jenis->id_jenis_barang)->get();
+        // dd(Satuan::where(DB::raw('JSON_CONTAINS(id_jenis, \'"'.$barang->jenis->id_jenis_barang.'"\', \'$\')'), 'true')->toSql());
+        $data['satuan'] = Satuan::where(DB::raw('JSON_CONTAINS(id_jenis, \'"'.$barang->jenis->id_jenis_barang.'"\', \'$\')'), 1)->get();
         $data['supplier'] = Supplier::all();
         return view('barang/edit', $data);
     }
@@ -88,7 +89,12 @@ class BarangController extends Controller
             $update['gambar'] = "berkas/$fileName";
         }
         $data = \App\Models\Barang::find($kode_barang);
+        
+        // penjumlahan stok lama dengan stok baru
+        $total_stok = $data->jumlah_beli + request()->jumlah_beli;
+
         $berkaslama = $data->gambar;
+        $update['jumlah_beli'] = $total_stok;
         $data->update($update);
         if($berkaslama && $file){
             Storage::delete($berkaslama);
