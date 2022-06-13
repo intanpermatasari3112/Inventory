@@ -13,6 +13,7 @@ class LaporanController extends Controller
 {
     public function index(Request $request)
     {
+        $barangkeluar = new \App\Models\Barangkeluar();
         $barang = new \App\Models\Barang();
         if(request()->dari_tgl)
             $barang = $barang->where('tanggal_masuk', '>=', request()->dari_tgl);
@@ -23,6 +24,7 @@ class LaporanController extends Controller
         $data['data_barang'] = $barang->get();
         $data['stok'] = Stok::all();
         $data['jenis'] = Jenis::all();
+        $data['data_barang_keluar'] = $data_barang_keluar->orderBy('kode_barang_keluar', 'asc')->get();
         return view('laporan.index',$data);
     }
     public function laporansupplier()

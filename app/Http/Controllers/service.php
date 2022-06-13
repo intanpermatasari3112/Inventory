@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Str;
-use DB;
 use App\Models\Barang;
+use App\Models\Barangkeluar;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\DB;
+
 class service extends Controller
 {
     public function index()
     {
-        $data['data_barang'] = \App\Models\Barang::all();
-        return response($data);
+        $data_barang = new \App\Models\Barang;
+        if(request()->id_jenis_barang)
+            $data_barang = $data_barang->where(['jenis_barang' => request()->id_jenis_barang]);
+        return response([
+            'data_barang' => $data_barang->get()
+        ]);
     }
     public function lihat()
     {
@@ -25,10 +32,26 @@ class service extends Controller
     
         return response($data);
     }
+
+    public function lihatjenisbarang(Request $request)
+    {
+        $data= new \App\Models\Barang;
+        if(request()->id_jenis_barang)
+            $data = $data->where(['jenis_barang' => request()->id_jenis_barang]);
+        return response(['lihat' => $data->get()]);
+    }
+
     public function detailBarang(Request $request)
     {
         $kodeBarang = $request->get('kode_barang');
         $data= \App\Models\Barang::where(['kode_barang' => $kodeBarang])->first();
+        return response(['detail' => $data]);
+    }
+    public function lihatbarangkeluar(Request $request)
+    {
+
+        $kodeBarang = $request->get('kode_barang');
+        $data= \App\Models\Barangkeluar::where(['kode_barang' => $kodeBarang])->first();
         return response($data);
     }
 
@@ -121,4 +144,79 @@ class service extends Controller
         }
         return response(['message' => 'data berhasil dihapus']);
     }
+    public function tambahBarangKeluar(Request $request)
+    {
+        $kodeBarangKeluar = $request->post('kode_barang_keluar'); //ambil post value index nama_peserta
+        $jenisBarang = $request->post('jenis_barang');  //ambil post value index id_periode
+        $kodeBarang = $request->post('kode_barang');  //ambil post value index id_periode
+        $tanggalKeluar = $request->post('tanggal_keluar');  //ambil post value index id_periode
+        $jumlah = $request->post('jumlah');  //ambil post value index id_periode
+        $pengguna = $request->post('pengguna');  //ambil post value index id_periode
+        $keterangan = $request->post('keterangan_pinjam');  //ambil post value index id_periode
+        $alasanPinjam = $request->post('alasan_pinjam');  //ambil post value index id_periode
+
+        
+        $data = [
+            'kode_barang_keluar' => $kodeBarangKeluar,
+            'jenis_barang' => $jenisBarang,
+            'kode_barang' => $kodeBarang,
+            'tanggal_keluar' => $tanggalKeluar,
+            'jumlah' => $jumlah,
+            'pengguna' => $pengguna,
+            'alasan_pinjam' => $alasanPinjam,
+            'keterangan_pinjam' => $keterangan
+           
+        ];
+
+        $ins = Barangkeluar::insert($data); //proses insert
+        if ($ins) {
+            //kalo berhasil kasih response json berhasil
+            return response(['message' => 'Tambah Barang Keluar Berhasil']);
+        } else {
+            //kalo gagal insert, kasih juga response gagal dengan HTTP code 500 (internal server error)
+            return response(['message' => 'Tambah Barang Keluar gagal'], 500);
+        }
+    }
+    public function cariBarang(Request $request)
+    {
+        $namaBarang = $request->get('nama_barang');
+        $data['data_barang'] = Barang::Where('nama_barang', 'like', '%' . $namaBarang. '%')->get();
+        return response($data);
+    }
+    public function lihatuser()
+    {
+        $data['data_user'] = \App\Models\User::all();
+        return response($data);
+    }
+    public function nextIdBarang()
+    {
+        $last = \App\Models\Barangkeluar::orderBy('kode_barang_keluar', 'desc')->first();
+        $data['nextid'] = $last ? $last->kode_barang_keluar + 1 : 1;
+        return response($data);
+    }
+
+    
+    public function lihatbarangkeluarbyuser(Request $request)
+    {
+       $pengguna = $request->get('pengguna');
+       $limit = $request->get('limit');
+       if($limit){
+
+        $data['data_barang_keluar_by_user'] =  Barangkeluar::join('jenis', "barang_keluar.jenis_barang", "=", "jenis.id_jenis_barang")
+        ->join('barang', 'barang.jenis_barang', "=", 'jenis.id_jenis_barang')
+       ->where('pengguna',$pengguna)
+       ->limit($limit)
+       ->get(['barang_keluar.*','nama_barang','jenis.jenis_barang','barang.gambar']);
+       }else{
+       $data['data_barang_keluar_by_user'] =  Barangkeluar::join('jenis', "barang_keluar.jenis_barang", "=", "jenis.id_jenis_barang")
+        ->join('barang', 'barang.jenis_barang', "=", 'jenis.id_jenis_barang')
+       ->where('pengguna',$pengguna)
+       ->get(['barang_keluar.*','nama_barang','jenis.jenis_barang','barang.gambar']);
+    // $data['data_barang_keluar_by_user'] = \App\Models\Barangkeluar::where('pengguna',$pengguna)->get();
+       }
+        return response($data);
+    
+}
+
+
 }

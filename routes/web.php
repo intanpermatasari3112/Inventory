@@ -11,6 +11,7 @@ use App\Http\Controllers\JenisController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\service;
 /*
 |--------------------------------------------------------------------------
@@ -67,12 +68,18 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:pengguna,admin'])->group(function () {
         Route::get('/barangkeluar', [BarangkeluarController::class, 'index']);
         Route::post('/barangkeluar/create', [BarangkeluarController::class, 'create']);
-        Route::post('/barangkeluar/{kode_barang_keluar}/accstatus', [BarangkeluarController::class, 'acc_status']);
+        Route::post('/barangkeluar/{kode_barang_keluar}/accstatus', [BarangkeluarController::class, 'acc_pinjam']);
         Route::post('/barangkeluar/{kode_barang_keluar}/pengembalian', [BarangkeluarController::class, 'pengembalian']);
         Route::get('/barangkeluar/{kode_barang_keluar}/edit', [BarangkeluarController::class, 'edit']);
         Route::post('/barangkeluar/{kode_barang_keluar}/update', [BarangkeluarController::class, 'update']);
         Route::get('/barangkeluar/{kode_barang_keluar}/delete', [BarangkeluarController::class, 'delete']);
-        
+    });
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/satuan', [SatuanController::class, 'index']);
+        Route::post('/satuan/create', [SatuanController::class, 'create']);
+        Route::get('/satuan/{id}/edit', [SatuanController::class, 'edit']);
+        Route::post('/satuan/{id}/update', [SatuanController::class, 'update']);
+        Route::get('/satuan/{id}/delete', [SatuanController::class, 'delete']);
     });
 });
 
@@ -85,13 +92,24 @@ Auth::routes([
     'register' => false,
 ]);
 Route::get('webservice/listbarang', [service::class, 'index']);
+Route::get('webservice/listsupplier', [service::class, 'supplier']);
+Route::get('webservice/listuser', [service::class, 'listuser']);
 Route::get('webservice/liststok', [service::class, 'lihat']);
 Route::get('webservice/listjenis', [service::class, 'lihatjenis']);
+Route::get('webservice/caribarang', [service::class, 'cariBarang']);
+Route::get('webservice/listbarangkeluar', [service::class, 'lihatbarangkeluar']);
 Route::get("webservice/detailbarang", [service::class, "detailBarang"]);
 Route::post('webservice/login', [service::class, 'user']);
+Route::get('webservice/lihatbarangkeluarbyuser', [service::class, 'lihatbarangkeluarbyuser']);
+Route::get('webservice/lihatjenisbarang', [service::class, 'lihatjenisbarang']);
 Route::post('webservice/tambah-barang', [service::class, 'tambahBarang']);
 Route::post('webservice/tambah-jenis', [service::class, 'tambahJenis']);
-Route::get("webservice/hapusBarang", [service::class, "hapusBarang"]);
+Route::post('webservice/tambah-barangkeluar', [service::class, 'tambahBarangKeluar']);
+Route::get("webservice/hapus-barang/{kode_barang}", [service::class, "hapusBarang"]);
+Route::post("webservice/update-barang", [service::class, "updateBarang"]);
+Route::get("webservice/next-id", [service::class, "nextIdBarang"]);
+
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

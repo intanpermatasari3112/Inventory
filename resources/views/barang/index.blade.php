@@ -89,7 +89,13 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="satuan" class="form-label">Satuan</label>
-                                                <input name="satuan" type="text" class="form-control" id="satuan" aria-describedby="satuan" placeholder="Masukkan Nama Satuan">
+                                                <!-- <input name="satuan" type="text" class="form-control" id="satuan" aria-describedby="satuan" placeholder="Masukkan Nama Satuan"> -->
+                                                <select name="satuan" id="kategori" class="form-select">
+                                                    <option value="">-- Silahkan pilih satu --</option>
+                                                    @foreach($satuan as $s)
+                                                    <option data-idjenis="{{ $s->id_jenis }}" value="{{ $s->urai }}">{{$s->urai}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="jumlah_beli" class="form-label">Jumlah Beli</label>
@@ -201,7 +207,6 @@
                                     <img src="{{ url($barang->gambar) }}" width="240px" />
                                 </td>
                                 <td>
-                                <a href="{{ url('barang/'.$barang->kode_barang.'/tambahstok') }}" class="btn btn-info btn-sm">Tambah Stok
                                     <a href="{{ url('barang/'.$barang->kode_barang.'/edit') }}" class="btn btn-warning btn-sm">Ubah
                                         <a href="{{ url('barang/'.$barang->kode_barang.'/delete') }}" class="btn btn-danger btn-sm">Hapus
                                             <a href="{{ url('barang/'.$barang->kode_barang.'/cetak') }}" class="btn btn-success btn-sm">Barcode
@@ -212,6 +217,42 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="card-title">History Barang</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table table-hover myTable">
+                    <thead>
+                        <tr align="center">
+                            <th>No</th>
+                            <th>Transaksi</th>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $no = 1; @endphp
+                        @foreach($history as $r)
+                        <tr align="center">
+                            <td>{{$no++}}</td>
+                            <td>{{$r->nama_transaksi}}</td>
+                            <td>{{$r->tanggal_transaksi}}</td>
+                            <td>{{$r->keterangan}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 </div>
@@ -229,12 +270,17 @@
         //                                         harga_beli.addEventListener('keydown', function(event) {
 	    //                                         return isNumberKey(event);
         //                                         });
+        $('select[name=satuan] option[value!=""]').hide();
         $('select[name=jenis_barang]').change(function() {
+            let id_jenis_barang = $(this).val();
             kodesbarang.filter(r => r.kode_jenis == $(this).find(":selected").data('kodejenis')).map(r => {
                 let {
                     kode_jenis,
                     lastid
                 } = r;
+                $('select[name=satuan] option[value!=""]').hide();
+                $('select[name=satuan] option[value!=""][data-idjenis='+id_jenis_barang+']').show();
+                $('select[name=satuan]').val('');
                 const nextid = ('000' + (parseInt(lastid || '0') + 1)).slice(-4);
                 $('input[name=kode_barang]').val(`${kode_jenis}-LTI-${nextid}`);
             });

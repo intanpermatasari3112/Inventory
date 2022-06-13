@@ -17,6 +17,8 @@ class VerifyCsrfToken extends Middleware
         "webservice/tambah-barang",
         "webservice/tambah-jenis",
         "webservice/tambah-stok",
-        "webservice/update-barang"
+        "webservice/update-barang",
+        "webservice/tambah-barangkeluar"
+
     ];
 }

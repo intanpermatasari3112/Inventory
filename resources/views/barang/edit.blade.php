@@ -51,7 +51,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="satuan" class="form-label">Satuan</label>
-                            <input name="satuan" type="text" class="form-control" id="satuan" aria-describedby="satuan" placeholder="Masukkan Satuan" value="{{$barang->satuan}}">
+                            <!-- <input name="satuan" type="text" class="form-control" id="satuan" aria-describedby="satuan" placeholder="Masukkan Satuan" value="{{$barang->satuan}}"> -->
+                            <select name="satuan" id="kategori" class="form-select">
+                                <option value="">-- Silahkan pilih satu --</option>
+                                @foreach($satuan as $s)
+                                    <option {{$barang->satuan == $s->urai ? 'selected':''}} data-idjenis="{{ $s->id_jenis }}" value="{{ $s->urai }}">{{$s->urai}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="jumlah_beli" class="form-label">Jumlah Beli</label>

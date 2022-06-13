@@ -31,6 +31,7 @@ class BarangkeluarController extends Controller
             else
         $data['user'] = User::all();
         $data['barang'] = Barang::all();
+        $data['history'] = DB::table('history_transaksi')->where('jenis_transaksi', 'PENGEMBALIAN_BARANG')->get();
         $data['nextid'] = $last ? $last->kode_barang_keluar + 1 : 1;
         return view('barangkeluar.index', $data);
     }
@@ -39,12 +40,9 @@ class BarangkeluarController extends Controller
         $barang=\App\Models\Barang::where('kode_barang', request()->kode_barang)->first();
         if(!$barang)
             return redirect('/barangkeluar')->with('error', 'Barang Tidak ditemukan');
+        // pengajuan peminjaman hanya pengecekan stok tanpa mengurangi, nanti di acc
         if(!$barang->stokone || ($barang->stokone && $barang->stokone->stok < request()->jumlah))
             return redirect('/barangkeluar')->with('error', 'Stok kurang dari barang dipinjam');
-        else {
-            $stok=$barang->stokone->stok-request()->jumlah;
-            $barang->stokone->update(['stok'=>$stok]);
-        }
         $create = $request->all();
         $create ['status_pinjam'] = "PENDING";
         \App\Models\Barangkeluar::create($create);
@@ -73,6 +71,16 @@ class BarangkeluarController extends Controller
     public function acc_pinjam(Request $request, $kode_barang_keluar)
     {
         $data = \App\Models\Barangkeluar::find($kode_barang_keluar);
+        // stok berkurang ketika peminjaman di acc bukan ketika megajukan dan diterima
+        $barang = \App\Models\Barang::where('kode_barang', $data->kode_barang)->first();
+        if($request->status_pinjam == 'DITERIMA') {
+            if(!$barang->stokone || ($barang->stokone && $barang->stokone->stok < request()->jumlah))
+                return redirect('/barangkeluar')->with('error', 'Stok kurang dari barang dipinjam, proses pinjam tidak dapat dilanjutkan');
+            else {
+                $stok = $barang->stokone->stok - request()->jumlah;
+                $barang->stokone->update(['stok'=>$stok]);
+            }
+        }
         $data->update([
             'status_pinjam' => $request->status_pinjam,
             'keterangan_status_pinjam' => $request->keterangan_status_pinjam
@@ -82,6 +90,20 @@ class BarangkeluarController extends Controller
     public function pengembalian(Request $request, $kode_barang_keluar) 
     {
         $data = \App\Models\Barangkeluar::where('kode_barang_keluar', $kode_barang_keluar)->where('status_pinjam', 'DISETUJUI');
+        $pinjaman = $data->first();
+
+        // tambah stok barang
+        $barang = \App\Models\Barang::where('kode_barang', $pinjaman->kode_barang)->first();
+        $stok = $barang->stokone->stok + $pinjaman->jumlah;
+        $barang->stokone->update(['stok'=>$stok]);
+
+        // tambah ke history
+        DB::table('history_transaksi')->insert([
+            'nama_transaksi' => 'Penambahan '. $pinjaman->jumlah .' stok, barang '. $barang->kode_barang .' dari pengembalian ' . $pinjaman->pengguna,
+            'jenis_transaksi' => 'PENGEMBALIAN_BARANG',
+            'user_id' => Auth::user()->id
+        ]);
+
         $data->update([
             'status_kembali' => 'SUDAH',
         ]);

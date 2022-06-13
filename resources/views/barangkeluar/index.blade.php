@@ -252,7 +252,8 @@
                             <td>{{$barangkeluar->alasan_pinjam}}</td>
                             <td>
                                 @if(Auth::user()->level == 'ADMIN')
-                                <button
+                                    @if ($barangkeluar->status_pinjam=='PENDING')
+                                    <button
                                     type="button"
                                     class="btn btn-peminjaman btn-warning btn-sm"
                                     data-kodebarangkeluar="{{$barangkeluar->kode_barang_keluar}}"
@@ -263,6 +264,7 @@
                                     data-tanggalkeluar="{{$barangkeluar->tanggal_keluar}}"
                                     data-alasanpinjam="{{$barangkeluar->alasan_pinjam}}"
                                     data-jumlah="{{$barangkeluar->jumlah}}">Peminjaman</button>
+                                    @endif
                                 @elseif(Auth::user()->level == 'PENGGUNA')
                                     @if ($barangkeluar->status_pinjam=='DISETUJUI' && $barangkeluar->status_kembali == 'BELUM')
                                     <button class="btn btn-pengembalian btn-warning" data-kodebarangkeluar="{{$barangkeluar->kode_barang_keluar}}">Pengembalian</button>
@@ -277,6 +279,43 @@
                 </table>
                 </div>
             </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="card-title">History Barang Dipinjam</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table table-hover myTable">
+                    <thead>
+                        <tr align="center">
+                            <th>No</th>
+                            <th>Transaksi</th>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $no = 1; @endphp
+                        @foreach($history as $r)
+                        <tr align="center">
+                            <td>{{$no++}}</td>
+                            <td>{{$r->nama_transaksi}}</td>
+                            <td>{{$r->tanggal_transaksi}}</td>
+                            <td>{{$r->keterangan}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 </div>
@@ -309,7 +348,7 @@
             modal.find("input[mame=tanggal_keluar]").val($(this).data('tanggalkeluar'))
             modal.find("input[mame=alasan_pinjam]").val($(this).data('alasanpinjam'))
             modal.find("input[name=jumlah]").val($(this).data('jumlah'))
-            modal.find('form').attr('action', '/barangkeluar/' + $(this).data('kodebarangkeluar') + '/status')
+            modal.find('form').attr('action', '/barangkeluar/' + $(this).data('kodebarangkeluar') + '/accstatus')
         });
 
 
