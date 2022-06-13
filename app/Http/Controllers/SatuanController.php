@@ -10,7 +10,11 @@ class SatuanController extends Controller
 {
     public function index() {
         $data = [
+<<<<<<< HEAD
             'jenis' => Jenis::get(),
+=======
+            'jenis' => new Jenis,
+>>>>>>> e86f4b4c69ed67604fe6a0467d09328181eb1624
             'satuan' => Satuan::get()
         ];
         return view('satuan.index', $data);

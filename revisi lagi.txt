@@ -1,9 +1,5 @@
-2. Fitur pinjam dan pengembalian barang, dan stok barang bertambah jika sudah dikembalikan,
-3. Proses Pengajuan peminjaman barang, dan status barang, filter barang berdasarkan status (Disetujui, Pending, Ditolak dan keterangan), tidak ada update
-4. Menambah fitur satuan seperti barang masuk 
-5. Pada dashboard menampilkan tabel dalam bentuk tabel status dipinjam pending, dan fitur lihat semua peminjaman barang
-7. Laporan Barang dipinjam, Laporan Stok Menipis
 
+7. Laporan Barang dipinjam, 
 Done
 1. Kode Barang diganti Nama Barang
 2. Tanda dropdown, Formatting uang pada tambah barang 
@@ -11,10 +7,15 @@ Done
 4. Otomatis BatasMin
 5. Pada dashboard Stok menampilkan jumlah barang yang menipis
 6. Pengguna hanya user
-7. Laporan User, Laporan Supplier
+7. Laporan User, Laporan Supplier, Laporan Stok Menipis
 8. Pop-up pada Barang dipinjam jika kurang dari stok "Barang tidak dapat diproses"
 9. Filter pada laporan berdasarkan jenis atau semuanya
-
+10. Fitur pinjam dan pengembalian barang, dan stok barang bertambah jika sudah dikembalikan,
+11. Proses Pengajuan peminjaman barang, dan status barang, , tidak ada update
+12. Pada dashboard menampilkan tabel dalam bentuk tabel status dipinjam pending, dan fitur lihat semua peminjaman barang
+13. filter barang berdasarkan status (Disetujui, Pending, Ditolak dan keterangan)
+14. Menambah fitur satuan seperti barang masuk
 History Tranksaksi : Kode Barang, Tanggal Transaksi, Transaksi Baru masuk history 
 
+readonly di barang
 

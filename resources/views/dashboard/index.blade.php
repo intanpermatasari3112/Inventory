@@ -127,6 +127,22 @@
             <h2 class="card-title">Data Barang Dipinjam</h2>
           </div>
         </div>
+<<<<<<< HEAD
+=======
+        <div class="col-12">
+                        <div class="d-flex justify-content-between">
+                            <form action="" method="get" class="mt-2">
+                                <select name="status_pinjam" id="status_pinjam" class="form-control form-control-sm d-inline" style="width: auto;">
+                                <option value="">-- Semua Status Pinjam --</option>
+                                <option value="PENDING">PENDING</option>
+                                <option value="DISETUJUI">DISETUJUI</option>
+                                <option value="DITOLAK">DITOLAK</option>
+                                </select>
+                                <button class="btn btn-sm btn-success" type="submit">Lihat</button>
+                            </form>
+                        </div>
+                    </div>
+>>>>>>> e86f4b4c69ed67604fe6a0467d09328181eb1624
       </div>
       <div class="card-body">
         <table class="table table-hover myTable">
@@ -172,6 +188,7 @@
                 @endif
               </td>
               <td>{{$barangkeluar->alasan_pinjam}}</td>
+<<<<<<< HEAD
               <td>
                 @if(Auth::user()->level == 'ADMIN')
                 @if ($barangkeluar->status_pinjam=='PENDING')
@@ -185,6 +202,8 @@
                 @endif
                 @endif
               </td>
+=======
+>>>>>>> e86f4b4c69ed67604fe6a0467d09328181eb1624
             </tr>
             @endforeach
           </tbody>

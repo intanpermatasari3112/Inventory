@@ -14,6 +14,9 @@
                         <li class="breadcrumb-item active">Data Laporan Inventaris Barang</li>
                     </ol>
                 </div>
+                <div class="col-sm-6 text-end">
+                    <a href="{{ url('/laporan/cetak') }}" target="_blank" class="btn btn-outline-success">Cetak Laporan</a>
+                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>

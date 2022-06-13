@@ -38,10 +38,17 @@
                         {{csrf_field()}}
                         <div class="mb-3">
                             <label for="id_jenis" class="form-label">Kode Barang</label>
+<<<<<<< HEAD
                             <select name="id_jenis" id="id_jenis" class="form-control">
                                 <option value="">-- Silahkan pilih satu --</option>
                                 @foreach($jenis as $j)
                                 <option {{ $j->id_jenis_barang == $satuan->id_jenis ? 'selected': '' }} value="{{ $j->id_jenis_barang }}">{{$j->jenis_barang}}</option>
+=======
+                            <select multiple name="id_jenis[]" id="id_jenis" class="form-select d-block select2">
+                                <option value="">-- Silahkan pilih satu --</option>
+                                @foreach($jenis as $j)
+                                <option {{ in_array($j->id_jenis_barang, $satuan->id_jenis) ? 'selected': '' }} value="{{ $j->id_jenis_barang }}">{{$j->jenis_barang}}</option>
+>>>>>>> e86f4b4c69ed67604fe6a0467d09328181eb1624
                                 @endforeach
                             </select>
                         </div>

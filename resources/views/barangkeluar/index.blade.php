@@ -42,6 +42,19 @@
                             Tambah Barang Dipinjam
                         </button>
                     </div>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between">
+                            <form action="" method="get" class="mt-2">
+                                <select name="status_pinjam" id="status_pinjam" class="form-control form-control-sm d-inline" style="width: auto;">
+                                <option value="">-- Semua Status Pinjam --</option>
+                                <option value="PENDING">PENDING</option>
+                                <option value="DISETUJUI">DISETUJUI</option>
+                                <option value="DITOLAK">DITOLAK</option>
+                                </select>
+                                <button class="btn btn-sm btn-success" type="submit">Lihat</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div>
                         <!-- Modal -->
@@ -205,12 +218,12 @@
                     </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-respponsive">
                 <table class="table table-hover myTable">
                     <thead>
                         <tr align="center">
                             <th>No</th>
-                            <th>Kode Barang Dipinjam</th>
+                            <th>Kode Peminjaman</th>
                             <th>Jenis Barang</th>
                             <th>Nama Barang</th>
                             <th>Pengguna</th>
@@ -229,7 +242,7 @@
                             <td>{{$no++}}</td>
                             <td>{{$barangkeluar->kode_barang_keluar}}</td>
                             <td>{{$barangkeluar->jenis}}</td>
-                            <td>{{$barangkeluar->kode_barang . ' ' . $barangkeluar->nama_barang}}</td>
+                            <td>{{$barangkeluar->nama_barang}}</td>
                             <td>{{$barangkeluar->email}}</td>
                             <td>{{$barangkeluar->tanggal_keluar}}</td>
                             <td>{{$barangkeluar->jumlah}}</td>
@@ -298,7 +311,10 @@
                             <th>No</th>
                             <th>Transaksi</th>
                             <th>Tanggal</th>
+<<<<<<< HEAD
                             <th>Keterangan</th>
+=======
+>>>>>>> e86f4b4c69ed67604fe6a0467d09328181eb1624
                         </tr>
                     </thead>
                     <tbody>
@@ -308,7 +324,10 @@
                             <td>{{$no++}}</td>
                             <td>{{$r->nama_transaksi}}</td>
                             <td>{{$r->tanggal_transaksi}}</td>
+<<<<<<< HEAD
                             <td>{{$r->keterangan}}</td>
+=======
+>>>>>>> e86f4b4c69ed67604fe6a0467d09328181eb1624
                         </tr>
                         @endforeach
                     </tbody>

@@ -19,6 +19,8 @@ class BarangkeluarController extends Controller
         INNER JOIN barang ON barang_keluar.kode_barang=barang.kode_barang
         INNER JOIN jenis ON barang.jenis_barang=jenis.id_jenis_barang
         INNER JOIN users ON barang_keluar.pengguna=users.email) x"));
+        if(request()->status_pinjam)
+            $data_barang_keluar=$data_barang_keluar->where('status_pinjam', request()->status_pinjam);
         if(Auth::user()->level=='PENGGUNA'){
             $data_barang_keluar->where('pengguna', Auth::user()->email);
         }
